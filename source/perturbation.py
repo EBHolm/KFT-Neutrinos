@@ -78,10 +78,10 @@ def R3(r, z):
     front_factor = 4*np.pi*G*rho0(z)*Rs(z)**3/r**3/speedoflight**2*m_to_kpc
     return front_factor*(15*(r + Rs(z))**3*np.log((r + Rs(z))/Rs(z)) - r*(23*r**2 + 36*r*Rs(z) + 15*Rs(z)**2))/(r**4*(r + Rs(z))**3)
 
-def D1V(x, R1):
+def D1V_old(x, R1):
     return x*R1
 
-def D2V(x, R1, R2):
+def D2V_old(x, R1, R2):
     out = np.zeros([3, 3])
     for i in range(3):
         for j in range(3):
@@ -90,7 +90,7 @@ def D2V(x, R1, R2):
                 out[i, j] += R1
     return out
 
-def D3V(x, R2, R3):
+def D3V_old(x, R2, R3):
     out = np.zeros([3, 3, 3])
     for i in range(3):
         for j in range(3):
@@ -103,6 +103,35 @@ def D3V(x, R2, R3):
                 elif k == i:
                     out[i, j, k] += x[j]*R2
     return out
+
+def D1V(x, R1):
+    return x*R1
+
+def D2V(x, R1, R2):
+    x1, x2, x3 = x[0], x[1], x[2]
+    out = [[R1 + x1*x1*R2, x2*x1*R2,      x3*x1*R2], 
+           [x1*x2*R2,      R1 + x2*x2*R2, x3*x2*R2],
+           [x1*x3*R2,      x2*x3*R2,      R1 + x3*x3*R2]]
+    return np.array(out)
+
+def D3V(x, R2, R3):
+    x1, x2, x3 = x[0], x[1], x[2]
+    out =  [[
+            [3*x1*R2 + x1**3*R3,  x2*R2 + x1**2*x2*R3, x3*R2 + x1**2*x3*R3],
+            [x2*R2 + x1**2*x2*R3, x1*R2 + x1*x2**2*R3, x1*x2*x3*R3],
+            [x3*R2 + x1**2*x3*R3, x1*x2*x3*R3,         x1*R2 + x1*x3**2*R3]
+            ],
+            [
+            [x2*R2 + x1**2*x2*R3, x1*R2 + x1*x2**2*R3, x1*x2*x3*R3],
+            [x1*R2 + x1*x2**2*R3, 3*x2*R2 + x2**3*R3,  x3*R2 + x2**2*x3*R3],
+            [x1*x2*x3*R3,         x3*R2 + x2**2*x3*R3, x2*R2 + x2*x3**2*R3]
+            ],
+            [
+            [x3*R2 + x1**2*x3*R3, x1*x2*x3*R3,         x1*R2 + x1*x3**2*R3],
+            [x1*x2*x3*R3,         x3*R2 + x2**2*x3*R3, x2*R2 + x2*x3**2*R3],
+            [x1*R2 + x1*x3**2*R3, x2*R2 + x2*x3**2*R3, 3*x3*R2 + x3**3*R3]
+            ]]
+    return np.array(out)
 
 def get_second_order_correction(p_ini, x_here, z_span, Nbins):
     zlist = np.linspace(z_span[0], z_span[1], Nbins)
@@ -134,7 +163,7 @@ def second_order_integrand(inp):
     x1 = x_here - (Green(0) - Green(z1))*p_ini
     r1 = np.sqrt(np.dot(x1, x1))
     R1_x1 = R1(r1, z1)
-
+    #print(f"{D3V_old(x2, R2_x2, R3_x2)-D3V(x2, R2_x2, R3_x2)=}")
     first_term  = (Green(0) - Green(z1))*LapNFW(x2, z2)*LapNFW(x1, z1)
     second_term = (Green(z2) - Green(z1))*np.dot(np.trace(D3V(x2, R2_x2, R3_x2), axis1=1, axis2=2), D1V(x1, R1_x1))
 
@@ -154,18 +183,18 @@ def get_second_order_correction_parallel(p_ini, x_here, z_span, Nbins, Ncores='a
         for z1 in zlist[0:idx_2]:
             zpairs.append((z1, z2))
     inputs = [(p_ini, x_here, zs) for zs in zpairs]
-
+    
     # if __name__ == '__main__': # Use this if running directly from this script
-    if __name__ == 'relic_density':
-        p = mp.Pool(N_processes)
+    # if __name__ == 'relic_density':
+    p = mp.Pool(N_processes)
 
-        # Compute determinants, parallellized
-        integrands = p.map(second_order_integrand, inputs)
-        p.close()
-        p.join()
+    # Compute determinants, parallellized
+    integrands = p.map(second_order_integrand, inputs)
+    p.close()
+    p.join()
 
-        second_order = np.sum(np.array(integrands)*dz1*dz2)
-        return second_order
+    second_order = np.sum(np.array(integrands)*dz1*dz2)
+    return second_order
 
 def get_second_order_integral(p_bins, T, x_here, z_span, N_z, y_binning='laggauss', y_max=10):
     N_y, N_theta, N_phi = p_bins[0], p_bins[1], p_bins[2]
