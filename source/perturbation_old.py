@@ -15,12 +15,6 @@ from model import Green
 def FermiDirac(y):
     return 1/(1 + np.exp(y))
 
-def LapNFW(x, z):
-    # Laplacian of the NFW potential
-    x1, x2, x3 = x[0], x[1], x[2]
-    r = np.sqrt(x1**2 + x2**2 + x3**2)
-    return 4*np.pi*G*rho0(z)*Rs(z)**3/(r*(r + Rs(z))**2)/speedoflight**2*m_to_kpc
-
 def get_first_order_correction(p_ini, x_here, z_span, N_z, z_binning='log', logz_min=-12):
     # Computes the first order correction to the density
     first_order = 0

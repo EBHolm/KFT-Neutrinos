@@ -78,6 +78,35 @@ def NFW(x, z):
     r = np.sqrt(x[0]**2 + x[1]**2 + x[2]**2)
     return -x*4*np.pi*G*rho0(z)*Rs(z)**3/r**3*(r/(r + Rs(z)) - np.log(1 + r/Rs(z)))/speedoflight**2*m_to_kpc
 
+def LapNFW(x, z):
+    # Laplacian of the NFW potential
+    x1, x2, x3 = x[0], x[1], x[2]
+    r = np.sqrt(x1**2 + x2**2 + x3**2)
+    return 4*np.pi*G*rho0(z)*Rs(z)**3/(r*(r + Rs(z))**2)/speedoflight**2*m_to_kpc
+
+
+########################################
+
+def Rs_quick(z, conc, H):
+    rho_crit = 3*H**2/(8*np.pi*G*speedoflight**(-2)*m_to_kpc)
+    Delta_vir = 18*np.pi**2 + 82*(Omega_m(z) - 1) - 39*(Omega_m(z) - 1)**2
+    Rvir = (3*Mvir/(4*np.pi*Delta_vir*rho_crit))**(1/3)
+    return Rvir/conc
+
+def rho0_quick(z, Rs, conc):
+    return Mvir*(4*np.pi*Rs**3/(1 + z)**3*(np.log(1 + conc) - conc/(1 + conc)))**(-1)
+
+def LapNFW_quick(x, Rs_z):
+    r = np.sqrt(x[0]**2 + x[1]**2 + x[2]**2)
+    return 1.0/(r*(r + Rs_z)**2)
+
+from scipy.special import hyp2f1
+def Green_quick(z, mass):
+    # Green's function for the free particle
+    return -(1 + z)**2/(2*H0_kpc*mass*np.sqrt(OmegaL))*hyp2f1(1/2, 2/3, 5/3, -OmegaM/OmegaL*(1 + z)**3)
+
+########################################
+
 def derivatives_free(z, y):
     x = np.array([y[0], y[1], y[2]])
     p = np.array([y[3], y[4], y[5]])
@@ -94,6 +123,6 @@ def derivatives(z, y):
     return [*dxdz, *dpdz]
 
 from scipy.special import hyp2f1
-def Green(z):
+def Green(z, mass):
     # Green's function for the free particle
-    return -(1 + z)**2/(2*H0_kpc*mnu*np.sqrt(OmegaL))*hyp2f1(1/2, 2/3, 5/3, -OmegaM/OmegaL*(1 + z)**3)
+    return -(1 + z)**2/(2*H0_kpc*mass*np.sqrt(OmegaL))*hyp2f1(1/2, 2/3, 5/3, -OmegaM/OmegaL*(1 + z)**3)

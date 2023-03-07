@@ -8,6 +8,13 @@ def sph2cart(x):
     x3 = r*np.cos(th)
     return np.array([x1, x2, x3])
 
+def sph2cart_quick(x, sintheta, costheta):
+    r, phi = x[0], x[2]
+    x1 = r*sintheta*np.cos(phi)
+    x2 = r*sintheta*np.sin(phi)
+    x3 = r*costheta
+    return np.array([x1, x2, x3])
+
 def cart2sph(x):
     x1, x2, x3 = x[0], x[1], x[2]
     r   = np.sqrt(x1**2 + x2**2 + x3**2)
