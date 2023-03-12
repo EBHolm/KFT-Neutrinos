@@ -14,8 +14,8 @@ double H(double z) {
 
 double conc(double z) {
     double a = 0.537 + (1.025 - 0.537)*exp(-0.718*pow(z, 1.08));
-    double b = -0.97 + 0.024*z;
-    return exp(a + b*log(_Mvir_over_Msun_/(1e+12/_h_)))/0.613;
+    double b = -0.097 + 0.024*z;
+    return pow(10., a + b*log10(_Mvir_over_Msun_/(1e+12/_h_)))/0.613;
 }
 
 double Omega_m(double z) {

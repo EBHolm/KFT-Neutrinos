@@ -18,6 +18,25 @@
 #include "cosmology.hpp"
 
 
+struct FirstOrderArguments { // Could make this a struct now
+    double rtols[3];
+    double atols[3];
+    int GaussLaguerreNodes;
+    
+    double mnu;
+    double Tnu;
+    double r_here;
+    double rr_here;
+    double G0_Gz;
+    double weight;
+    double Rs;
+    double p;
+    double gp;
+    double r_a;
+    double r;
+    double phi_integrand;
+};
+
 double first_order(double mass, double z_ini, double rtols[3], double atols[3], double r_here, int N_GaussLaguerre, double Tnu = 0.0001676375864435959);
 double integrand_z(double z, FirstOrderArguments args);
 double integrand_y(double y, FirstOrderArguments args);

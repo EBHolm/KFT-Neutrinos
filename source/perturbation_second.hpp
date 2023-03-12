@@ -12,6 +12,20 @@
 #include <numbers>
 #include "quadrature.hpp"
 
+struct SecondOrderArguments { // Could make this a struct now
+    double rtols[4];
+    double atols[4];
+    int GaussLaguerreNodes;
+    
+    double mnu;
+    double Tnu;
+    double r_here;
+    double rr_here;
+    
+    std::vector<double> LaguerreNodes;
+    std::vector<double> LaguerreWeights;
+};
+
 
 double second_order(double mass, double z_ini, double rtols[4], double atols[4], double r_here, int N_GaussLaguerre, double Tnu = 0.0001676375864435959);
 
