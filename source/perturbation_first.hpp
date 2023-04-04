@@ -8,9 +8,6 @@
 #ifndef perturbation_first_hpp
 #define perturbation_first_hpp
 
-#include <cmath>
-#include <functional>
-#include <algorithm>
 #include <numbers>
 
 #include "quadrature.hpp"
@@ -27,6 +24,8 @@ struct FirstOrderArguments { // Could make this a struct now
     double Tnu;
     double r_here;
     double rr_here;
+    double conc;
+    double z_factor;
     double G0_Gz;
     double weight;
     double Rs;

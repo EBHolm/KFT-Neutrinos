@@ -1,8 +1,8 @@
 kftneutrinos.cpp
 setup.py
-../test.c
 ../source/cosmology.cpp
 ../source/perturbation_first.cpp
+../source/perturbation_second.cpp
 ../source/quadrature.cpp
 ../source/utils.cpp
 kftneutrinos.egg-info/PKG-INFO

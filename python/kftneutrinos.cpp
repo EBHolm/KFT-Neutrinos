@@ -4,7 +4,8 @@
 {
     "distutils": {
         "depends": [
-            "../source/perturbation_first.hpp"
+            "../source/perturbation_first.hpp",
+            "../source/perturbation_second.hpp"
         ],
         "extra_compile_args": [
             "-std=c++20",
@@ -22,6 +23,7 @@
         "sources": [
             "kftneutrinos.pyx",
             "../source/perturbation_first.cpp",
+            "../source/perturbation_second.cpp",
             "../source/quadrature.cpp",
             "../source/utils.cpp",
             "../source/cosmology.cpp"
@@ -787,6 +789,7 @@ static CYTHON_INLINE float __PYX_NAN() {
 #define __PYX_HAVE_API__kftneutrinos
 /* Early includes */
 #include "perturbation_first.hpp"
+#include "perturbation_second.hpp"
 #include "pythread.h"
 #include <string.h>
 #include <stdlib.h>
@@ -1115,15 +1118,28 @@ struct __pyx_MemviewEnum_obj;
 struct __pyx_memoryview_obj;
 struct __pyx_memoryviewslice_obj;
 struct __pyx_opt_args_12kftneutrinos_py_first_order;
+struct __pyx_opt_args_12kftneutrinos_py_second_order;
 
-/* "kftneutrinos.pyx":6
- *     cdef double first_order(double mass, double z_ini, double rtols[3], double atols[3], double r_here, int N_GaussLaguerre, double Tnu)
+/* "kftneutrinos.pyx":9
+ *     cdef double second_order(double mass, double z_ini, double rtols[4], double atols[4], double r_here, int N_GaussLaguerre, double Tnu)
  * 
  * cpdef py_first_order(double mass, double z_ini, double[::1] rtols, double[::1] atols, double r_here, int N_GaussLaguerre, double Tnu=0.0001676375864435959):             # <<<<<<<<<<<<<<
  *     integral = first_order(mass, z_ini, &rtols[0], &atols[0], r_here, N_GaussLaguerre, Tnu)
  *     return integral
  */
 struct __pyx_opt_args_12kftneutrinos_py_first_order {
+  int __pyx_n;
+  double Tnu;
+};
+
+/* "kftneutrinos.pyx":13
+ *     return integral
+ * 
+ * cpdef py_second_order(double mass, double z_ini, double[::1] rtols, double[::1] atols, double r_here, int N_GaussLaguerre, double Tnu=0.0001676375864435959):             # <<<<<<<<<<<<<<
+ *     integral = second_order(mass, z_ini, &rtols[0], &atols[0], r_here, N_GaussLaguerre, Tnu)
+ *     return integral
+ */
+struct __pyx_opt_args_12kftneutrinos_py_second_order {
   int __pyx_n;
   double Tnu;
 };
@@ -1908,6 +1924,7 @@ static PyObject *indirect_contiguous = 0;
 static int __pyx_memoryview_thread_locks_used;
 static PyThread_type_lock __pyx_memoryview_thread_locks[8];
 static PyObject *__pyx_f_12kftneutrinos_py_first_order(double, double, __Pyx_memviewslice, __Pyx_memviewslice, double, int, int __pyx_skip_dispatch, struct __pyx_opt_args_12kftneutrinos_py_first_order *__pyx_optional_args); /*proto*/
+static PyObject *__pyx_f_12kftneutrinos_py_second_order(double, double, __Pyx_memviewslice, __Pyx_memviewslice, double, int, int __pyx_skip_dispatch, struct __pyx_opt_args_12kftneutrinos_py_second_order *__pyx_optional_args); /*proto*/
 static struct __pyx_array_obj *__pyx_array_new(PyObject *, Py_ssize_t, char *, char *, char *); /*proto*/
 static void *__pyx_align_pointer(void *, size_t); /*proto*/
 static PyObject *__pyx_memoryview_new(PyObject *, int, int, __Pyx_TypeInfo *); /*proto*/
@@ -2140,6 +2157,7 @@ static PyObject *__pyx_n_s_unpack;
 static PyObject *__pyx_n_s_update;
 static PyObject *__pyx_n_s_z_ini;
 static PyObject *__pyx_pf_12kftneutrinos_py_first_order(CYTHON_UNUSED PyObject *__pyx_self, double __pyx_v_mass, double __pyx_v_z_ini, __Pyx_memviewslice __pyx_v_rtols, __Pyx_memviewslice __pyx_v_atols, double __pyx_v_r_here, int __pyx_v_N_GaussLaguerre, double __pyx_v_Tnu); /* proto */
+static PyObject *__pyx_pf_12kftneutrinos_2py_second_order(CYTHON_UNUSED PyObject *__pyx_self, double __pyx_v_mass, double __pyx_v_z_ini, __Pyx_memviewslice __pyx_v_rtols, __Pyx_memviewslice __pyx_v_atols, double __pyx_v_r_here, int __pyx_v_N_GaussLaguerre, double __pyx_v_Tnu); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __pyx_array_obj *__pyx_v_self, PyObject *__pyx_v_shape, Py_ssize_t __pyx_v_itemsize, PyObject *__pyx_v_format, PyObject *__pyx_v_mode, int __pyx_v_allocate_buffer); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array_2__getbuffer__(struct __pyx_array_obj *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_array___pyx_pf_15View_dot_MemoryView_5array_4__dealloc__(struct __pyx_array_obj *__pyx_v_self); /* proto */
@@ -2220,8 +2238,8 @@ static PyObject *__pyx_tuple__25;
 static PyObject *__pyx_codeobj__26;
 /* Late includes */
 
-/* "kftneutrinos.pyx":6
- *     cdef double first_order(double mass, double z_ini, double rtols[3], double atols[3], double r_here, int N_GaussLaguerre, double Tnu)
+/* "kftneutrinos.pyx":9
+ *     cdef double second_order(double mass, double z_ini, double rtols[4], double atols[4], double r_here, int N_GaussLaguerre, double Tnu)
  * 
  * cpdef py_first_order(double mass, double z_ini, double[::1] rtols, double[::1] atols, double r_here, int N_GaussLaguerre, double Tnu=0.0001676375864435959):             # <<<<<<<<<<<<<<
  *     integral = first_order(mass, z_ini, &rtols[0], &atols[0], r_here, N_GaussLaguerre, Tnu)
@@ -2248,11 +2266,12 @@ static PyObject *__pyx_f_12kftneutrinos_py_first_order(double __pyx_v_mass, doub
     }
   }
 
-  /* "kftneutrinos.pyx":7
+  /* "kftneutrinos.pyx":10
  * 
  * cpdef py_first_order(double mass, double z_ini, double[::1] rtols, double[::1] atols, double r_here, int N_GaussLaguerre, double Tnu=0.0001676375864435959):
  *     integral = first_order(mass, z_ini, &rtols[0], &atols[0], r_here, N_GaussLaguerre, Tnu)             # <<<<<<<<<<<<<<
  *     return integral
+ * 
  */
   __pyx_t_1 = 0;
   __pyx_t_2 = -1;
@@ -2262,7 +2281,7 @@ static PyObject *__pyx_f_12kftneutrinos_py_first_order(double __pyx_v_mass, doub
   } else if (unlikely(__pyx_t_1 >= __pyx_v_rtols.shape[0])) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 7, __pyx_L1_error)
+    __PYX_ERR(0, 10, __pyx_L1_error)
   }
   __pyx_t_3 = 0;
   __pyx_t_2 = -1;
@@ -2272,24 +2291,26 @@ static PyObject *__pyx_f_12kftneutrinos_py_first_order(double __pyx_v_mass, doub
   } else if (unlikely(__pyx_t_3 >= __pyx_v_atols.shape[0])) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 7, __pyx_L1_error)
+    __PYX_ERR(0, 10, __pyx_L1_error)
   }
   __pyx_v_integral = first_order(__pyx_v_mass, __pyx_v_z_ini, (&(*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rtols.data) + __pyx_t_1)) )))), (&(*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_atols.data) + __pyx_t_3)) )))), __pyx_v_r_here, __pyx_v_N_GaussLaguerre, __pyx_v_Tnu);
 
-  /* "kftneutrinos.pyx":8
+  /* "kftneutrinos.pyx":11
  * cpdef py_first_order(double mass, double z_ini, double[::1] rtols, double[::1] atols, double r_here, int N_GaussLaguerre, double Tnu=0.0001676375864435959):
  *     integral = first_order(mass, z_ini, &rtols[0], &atols[0], r_here, N_GaussLaguerre, Tnu)
  *     return integral             # <<<<<<<<<<<<<<
+ * 
+ * cpdef py_second_order(double mass, double z_ini, double[::1] rtols, double[::1] atols, double r_here, int N_GaussLaguerre, double Tnu=0.0001676375864435959):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_4 = PyFloat_FromDouble(__pyx_v_integral); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 8, __pyx_L1_error)
+  __pyx_t_4 = PyFloat_FromDouble(__pyx_v_integral); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_r = __pyx_t_4;
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "kftneutrinos.pyx":6
- *     cdef double first_order(double mass, double z_ini, double rtols[3], double atols[3], double r_here, int N_GaussLaguerre, double Tnu)
+  /* "kftneutrinos.pyx":9
+ *     cdef double second_order(double mass, double z_ini, double rtols[4], double atols[4], double r_here, int N_GaussLaguerre, double Tnu)
  * 
  * cpdef py_first_order(double mass, double z_ini, double[::1] rtols, double[::1] atols, double r_here, int N_GaussLaguerre, double Tnu=0.0001676375864435959):             # <<<<<<<<<<<<<<
  *     integral = first_order(mass, z_ini, &rtols[0], &atols[0], r_here, N_GaussLaguerre, Tnu)
@@ -2356,31 +2377,31 @@ static PyObject *__pyx_pw_12kftneutrinos_1py_first_order(PyObject *__pyx_self, P
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_z_ini)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("py_first_order", 0, 6, 7, 1); __PYX_ERR(0, 6, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("py_first_order", 0, 6, 7, 1); __PYX_ERR(0, 9, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_rtols)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("py_first_order", 0, 6, 7, 2); __PYX_ERR(0, 6, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("py_first_order", 0, 6, 7, 2); __PYX_ERR(0, 9, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_atols)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("py_first_order", 0, 6, 7, 3); __PYX_ERR(0, 6, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("py_first_order", 0, 6, 7, 3); __PYX_ERR(0, 9, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_r_here)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("py_first_order", 0, 6, 7, 4); __PYX_ERR(0, 6, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("py_first_order", 0, 6, 7, 4); __PYX_ERR(0, 9, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
         if (likely((values[5] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_N_GaussLaguerre)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("py_first_order", 0, 6, 7, 5); __PYX_ERR(0, 6, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("py_first_order", 0, 6, 7, 5); __PYX_ERR(0, 9, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  6:
@@ -2390,7 +2411,7 @@ static PyObject *__pyx_pw_12kftneutrinos_1py_first_order(PyObject *__pyx_self, P
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "py_first_order") < 0)) __PYX_ERR(0, 6, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "py_first_order") < 0)) __PYX_ERR(0, 9, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -2406,21 +2427,21 @@ static PyObject *__pyx_pw_12kftneutrinos_1py_first_order(PyObject *__pyx_self, P
         default: goto __pyx_L5_argtuple_error;
       }
     }
-    __pyx_v_mass = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_mass == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 6, __pyx_L3_error)
-    __pyx_v_z_ini = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_z_ini == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 6, __pyx_L3_error)
-    __pyx_v_rtols = __Pyx_PyObject_to_MemoryviewSlice_dc_double(values[2], PyBUF_WRITABLE); if (unlikely(!__pyx_v_rtols.memview)) __PYX_ERR(0, 6, __pyx_L3_error)
-    __pyx_v_atols = __Pyx_PyObject_to_MemoryviewSlice_dc_double(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_atols.memview)) __PYX_ERR(0, 6, __pyx_L3_error)
-    __pyx_v_r_here = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_r_here == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 6, __pyx_L3_error)
-    __pyx_v_N_GaussLaguerre = __Pyx_PyInt_As_int(values[5]); if (unlikely((__pyx_v_N_GaussLaguerre == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 6, __pyx_L3_error)
+    __pyx_v_mass = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_mass == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 9, __pyx_L3_error)
+    __pyx_v_z_ini = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_z_ini == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 9, __pyx_L3_error)
+    __pyx_v_rtols = __Pyx_PyObject_to_MemoryviewSlice_dc_double(values[2], PyBUF_WRITABLE); if (unlikely(!__pyx_v_rtols.memview)) __PYX_ERR(0, 9, __pyx_L3_error)
+    __pyx_v_atols = __Pyx_PyObject_to_MemoryviewSlice_dc_double(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_atols.memview)) __PYX_ERR(0, 9, __pyx_L3_error)
+    __pyx_v_r_here = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_r_here == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 9, __pyx_L3_error)
+    __pyx_v_N_GaussLaguerre = __Pyx_PyInt_As_int(values[5]); if (unlikely((__pyx_v_N_GaussLaguerre == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 9, __pyx_L3_error)
     if (values[6]) {
-      __pyx_v_Tnu = __pyx_PyFloat_AsDouble(values[6]); if (unlikely((__pyx_v_Tnu == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 6, __pyx_L3_error)
+      __pyx_v_Tnu = __pyx_PyFloat_AsDouble(values[6]); if (unlikely((__pyx_v_Tnu == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 9, __pyx_L3_error)
     } else {
       __pyx_v_Tnu = ((double)0.0001676375864435959);
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("py_first_order", 0, 6, 7, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 6, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("py_first_order", 0, 6, 7, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 9, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("kftneutrinos.py_first_order", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2443,11 +2464,11 @@ static PyObject *__pyx_pf_12kftneutrinos_py_first_order(CYTHON_UNUSED PyObject *
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("py_first_order", 0);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_rtols.memview)) { __Pyx_RaiseUnboundLocalError("rtols"); __PYX_ERR(0, 6, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_atols.memview)) { __Pyx_RaiseUnboundLocalError("atols"); __PYX_ERR(0, 6, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_rtols.memview)) { __Pyx_RaiseUnboundLocalError("rtols"); __PYX_ERR(0, 9, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_atols.memview)) { __Pyx_RaiseUnboundLocalError("atols"); __PYX_ERR(0, 9, __pyx_L1_error) }
   __pyx_t_2.__pyx_n = 1;
   __pyx_t_2.Tnu = __pyx_v_Tnu;
-  __pyx_t_1 = __pyx_f_12kftneutrinos_py_first_order(__pyx_v_mass, __pyx_v_z_ini, __pyx_v_rtols, __pyx_v_atols, __pyx_v_r_here, __pyx_v_N_GaussLaguerre, 0, &__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_12kftneutrinos_py_first_order(__pyx_v_mass, __pyx_v_z_ini, __pyx_v_rtols, __pyx_v_atols, __pyx_v_r_here, __pyx_v_N_GaussLaguerre, 0, &__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -2457,6 +2478,252 @@ static PyObject *__pyx_pf_12kftneutrinos_py_first_order(CYTHON_UNUSED PyObject *
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_AddTraceback("kftneutrinos.py_first_order", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __PYX_XDEC_MEMVIEW(&__pyx_v_rtols, 1);
+  __PYX_XDEC_MEMVIEW(&__pyx_v_atols, 1);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "kftneutrinos.pyx":13
+ *     return integral
+ * 
+ * cpdef py_second_order(double mass, double z_ini, double[::1] rtols, double[::1] atols, double r_here, int N_GaussLaguerre, double Tnu=0.0001676375864435959):             # <<<<<<<<<<<<<<
+ *     integral = second_order(mass, z_ini, &rtols[0], &atols[0], r_here, N_GaussLaguerre, Tnu)
+ *     return integral
+ */
+
+static PyObject *__pyx_pw_12kftneutrinos_3py_second_order(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_f_12kftneutrinos_py_second_order(double __pyx_v_mass, double __pyx_v_z_ini, __Pyx_memviewslice __pyx_v_rtols, __Pyx_memviewslice __pyx_v_atols, double __pyx_v_r_here, int __pyx_v_N_GaussLaguerre, CYTHON_UNUSED int __pyx_skip_dispatch, struct __pyx_opt_args_12kftneutrinos_py_second_order *__pyx_optional_args) {
+  double __pyx_v_Tnu = ((double)0.0001676375864435959);
+  double __pyx_v_integral;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  Py_ssize_t __pyx_t_1;
+  int __pyx_t_2;
+  Py_ssize_t __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("py_second_order", 0);
+  if (__pyx_optional_args) {
+    if (__pyx_optional_args->__pyx_n > 0) {
+      __pyx_v_Tnu = __pyx_optional_args->Tnu;
+    }
+  }
+
+  /* "kftneutrinos.pyx":14
+ * 
+ * cpdef py_second_order(double mass, double z_ini, double[::1] rtols, double[::1] atols, double r_here, int N_GaussLaguerre, double Tnu=0.0001676375864435959):
+ *     integral = second_order(mass, z_ini, &rtols[0], &atols[0], r_here, N_GaussLaguerre, Tnu)             # <<<<<<<<<<<<<<
+ *     return integral
+ */
+  __pyx_t_1 = 0;
+  __pyx_t_2 = -1;
+  if (__pyx_t_1 < 0) {
+    __pyx_t_1 += __pyx_v_rtols.shape[0];
+    if (unlikely(__pyx_t_1 < 0)) __pyx_t_2 = 0;
+  } else if (unlikely(__pyx_t_1 >= __pyx_v_rtols.shape[0])) __pyx_t_2 = 0;
+  if (unlikely(__pyx_t_2 != -1)) {
+    __Pyx_RaiseBufferIndexError(__pyx_t_2);
+    __PYX_ERR(0, 14, __pyx_L1_error)
+  }
+  __pyx_t_3 = 0;
+  __pyx_t_2 = -1;
+  if (__pyx_t_3 < 0) {
+    __pyx_t_3 += __pyx_v_atols.shape[0];
+    if (unlikely(__pyx_t_3 < 0)) __pyx_t_2 = 0;
+  } else if (unlikely(__pyx_t_3 >= __pyx_v_atols.shape[0])) __pyx_t_2 = 0;
+  if (unlikely(__pyx_t_2 != -1)) {
+    __Pyx_RaiseBufferIndexError(__pyx_t_2);
+    __PYX_ERR(0, 14, __pyx_L1_error)
+  }
+  __pyx_v_integral = second_order(__pyx_v_mass, __pyx_v_z_ini, (&(*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rtols.data) + __pyx_t_1)) )))), (&(*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_atols.data) + __pyx_t_3)) )))), __pyx_v_r_here, __pyx_v_N_GaussLaguerre, __pyx_v_Tnu);
+
+  /* "kftneutrinos.pyx":15
+ * cpdef py_second_order(double mass, double z_ini, double[::1] rtols, double[::1] atols, double r_here, int N_GaussLaguerre, double Tnu=0.0001676375864435959):
+ *     integral = second_order(mass, z_ini, &rtols[0], &atols[0], r_here, N_GaussLaguerre, Tnu)
+ *     return integral             # <<<<<<<<<<<<<<
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_4 = PyFloat_FromDouble(__pyx_v_integral); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 15, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_r = __pyx_t_4;
+  __pyx_t_4 = 0;
+  goto __pyx_L0;
+
+  /* "kftneutrinos.pyx":13
+ *     return integral
+ * 
+ * cpdef py_second_order(double mass, double z_ini, double[::1] rtols, double[::1] atols, double r_here, int N_GaussLaguerre, double Tnu=0.0001676375864435959):             # <<<<<<<<<<<<<<
+ *     integral = second_order(mass, z_ini, &rtols[0], &atols[0], r_here, N_GaussLaguerre, Tnu)
+ *     return integral
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_AddTraceback("kftneutrinos.py_second_order", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static PyObject *__pyx_pw_12kftneutrinos_3py_second_order(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_12kftneutrinos_3py_second_order(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  double __pyx_v_mass;
+  double __pyx_v_z_ini;
+  __Pyx_memviewslice __pyx_v_rtols = { 0, 0, { 0 }, { 0 }, { 0 } };
+  __Pyx_memviewslice __pyx_v_atols = { 0, 0, { 0 }, { 0 }, { 0 } };
+  double __pyx_v_r_here;
+  int __pyx_v_N_GaussLaguerre;
+  double __pyx_v_Tnu;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("py_second_order (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_mass,&__pyx_n_s_z_ini,&__pyx_n_s_rtols,&__pyx_n_s_atols,&__pyx_n_s_r_here,&__pyx_n_s_N_GaussLaguerre,&__pyx_n_s_Tnu,0};
+    PyObject* values[7] = {0,0,0,0,0,0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  7: values[6] = PyTuple_GET_ITEM(__pyx_args, 6);
+        CYTHON_FALLTHROUGH;
+        case  6: values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
+        CYTHON_FALLTHROUGH;
+        case  5: values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
+        CYTHON_FALLTHROUGH;
+        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+        CYTHON_FALLTHROUGH;
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        CYTHON_FALLTHROUGH;
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_mass)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_z_ini)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("py_second_order", 0, 6, 7, 1); __PYX_ERR(0, 13, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  2:
+        if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_rtols)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("py_second_order", 0, 6, 7, 2); __PYX_ERR(0, 13, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  3:
+        if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_atols)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("py_second_order", 0, 6, 7, 3); __PYX_ERR(0, 13, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  4:
+        if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_r_here)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("py_second_order", 0, 6, 7, 4); __PYX_ERR(0, 13, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  5:
+        if (likely((values[5] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_N_GaussLaguerre)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("py_second_order", 0, 6, 7, 5); __PYX_ERR(0, 13, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  6:
+        if (kw_args > 0) {
+          PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_Tnu);
+          if (value) { values[6] = value; kw_args--; }
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "py_second_order") < 0)) __PYX_ERR(0, 13, __pyx_L3_error)
+      }
+    } else {
+      switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  7: values[6] = PyTuple_GET_ITEM(__pyx_args, 6);
+        CYTHON_FALLTHROUGH;
+        case  6: values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
+        values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
+        values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+        values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+    }
+    __pyx_v_mass = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_mass == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 13, __pyx_L3_error)
+    __pyx_v_z_ini = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_z_ini == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 13, __pyx_L3_error)
+    __pyx_v_rtols = __Pyx_PyObject_to_MemoryviewSlice_dc_double(values[2], PyBUF_WRITABLE); if (unlikely(!__pyx_v_rtols.memview)) __PYX_ERR(0, 13, __pyx_L3_error)
+    __pyx_v_atols = __Pyx_PyObject_to_MemoryviewSlice_dc_double(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_atols.memview)) __PYX_ERR(0, 13, __pyx_L3_error)
+    __pyx_v_r_here = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_r_here == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 13, __pyx_L3_error)
+    __pyx_v_N_GaussLaguerre = __Pyx_PyInt_As_int(values[5]); if (unlikely((__pyx_v_N_GaussLaguerre == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 13, __pyx_L3_error)
+    if (values[6]) {
+      __pyx_v_Tnu = __pyx_PyFloat_AsDouble(values[6]); if (unlikely((__pyx_v_Tnu == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 13, __pyx_L3_error)
+    } else {
+      __pyx_v_Tnu = ((double)0.0001676375864435959);
+    }
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("py_second_order", 0, 6, 7, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 13, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("kftneutrinos.py_second_order", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_12kftneutrinos_2py_second_order(__pyx_self, __pyx_v_mass, __pyx_v_z_ini, __pyx_v_rtols, __pyx_v_atols, __pyx_v_r_here, __pyx_v_N_GaussLaguerre, __pyx_v_Tnu);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_12kftneutrinos_2py_second_order(CYTHON_UNUSED PyObject *__pyx_self, double __pyx_v_mass, double __pyx_v_z_ini, __Pyx_memviewslice __pyx_v_rtols, __Pyx_memviewslice __pyx_v_atols, double __pyx_v_r_here, int __pyx_v_N_GaussLaguerre, double __pyx_v_Tnu) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  struct __pyx_opt_args_12kftneutrinos_py_second_order __pyx_t_2;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("py_second_order", 0);
+  __Pyx_XDECREF(__pyx_r);
+  if (unlikely(!__pyx_v_rtols.memview)) { __Pyx_RaiseUnboundLocalError("rtols"); __PYX_ERR(0, 13, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_atols.memview)) { __Pyx_RaiseUnboundLocalError("atols"); __PYX_ERR(0, 13, __pyx_L1_error) }
+  __pyx_t_2.__pyx_n = 1;
+  __pyx_t_2.Tnu = __pyx_v_Tnu;
+  __pyx_t_1 = __pyx_f_12kftneutrinos_py_second_order(__pyx_v_mass, __pyx_v_z_ini, __pyx_v_rtols, __pyx_v_atols, __pyx_v_r_here, __pyx_v_N_GaussLaguerre, 0, &__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("kftneutrinos.py_second_order", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __PYX_XDEC_MEMVIEW(&__pyx_v_rtols, 1);
@@ -16236,6 +16503,7 @@ static PyTypeObject __pyx_type___pyx_memoryviewslice = {
 
 static PyMethodDef __pyx_methods[] = {
   {"py_first_order", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_12kftneutrinos_1py_first_order, METH_VARARGS|METH_KEYWORDS, 0},
+  {"py_second_order", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_12kftneutrinos_3py_second_order, METH_VARARGS|METH_KEYWORDS, 0},
   {0, 0, 0, 0}
 };
 

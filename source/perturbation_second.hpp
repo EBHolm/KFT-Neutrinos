@@ -8,11 +8,14 @@
 #ifndef perturbation_second_hpp
 #define perturbation_second_hpp
 
-#include <stdio.h>
 #include <numbers>
 #include "quadrature.hpp"
 
-struct SecondOrderArguments { // Could make this a struct now
+struct SecondOrderArguments {
+    /*
+        TO DO: REMOVE UNNEEDED ARGUMENTS!
+     
+     */
     double rtols[4];
     double atols[4];
     int GaussLaguerreNodes;
@@ -21,6 +24,30 @@ struct SecondOrderArguments { // Could make this a struct now
     double Tnu;
     double r_here;
     double rr_here;
+    double G0;
+    double z_ini;
+    
+    double weight;
+    
+    double Gz2;
+    double G0_Gz2;
+    double Rs2;
+    // double rho0_z2;
+    double front_factor2;
+    
+    double G0_Gz1;
+    double Gz2_Gz1;
+    double xGz1pGz2;
+    double Rs1;
+    // double rho0_z1;
+    double front_factor1; // = 4.*std::numbers::pi*rho0(z, Rs, conc)*pow(Rs, 3.)*pow(r, -3.);
+    
+    
+    double p;
+    double gp1;
+    double gp2;
+    double y_a1;
+    double y_a2;
     
     std::vector<double> LaguerreNodes;
     std::vector<double> LaguerreWeights;
@@ -36,8 +63,6 @@ double integrand_z1(double z1, SecondOrderArguments args);
 double integrand_y(double y, SecondOrderArguments args);
 
 double integrand_theta(double theta, SecondOrderArguments args);
-
-double integrand_phi(double phi, SecondOrderArguments args);
 
 
 

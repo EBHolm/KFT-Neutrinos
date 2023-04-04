@@ -369,16 +369,19 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     Click on a line that starts with a "<code>+</code>" to see the C code that Cython generated for it.
 </p>
 <p>Raw output: <a href="kftneutrinos.cpp">kftneutrinos.cpp</a></p>
-<div class="cython"><pre class="cython line score-8" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">1</span>: <span class="k">import</span> <span class="nn">cython</span></pre>
+<div class="cython"><pre class="cython line score-8" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">01</span>: <span class="k">import</span> <span class="nn">cython</span></pre>
 <pre class='cython code score-8 '>  __pyx_t_1 = <span class='pyx_c_api'>__Pyx_PyDict_NewPresized</span>(0);<span class='error_goto'> if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_1);
   if (<span class='py_c_api'>PyDict_SetItem</span>(__pyx_d, __pyx_n_s_test, __pyx_t_1) &lt; 0) <span class='error_goto'>__PYX_ERR(0, 1, __pyx_L1_error)</span>
   <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_1); __pyx_t_1 = 0;
-</pre><pre class="cython line score-0">&#xA0;<span class="">2</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">3</span>: <span class="k">cdef</span> <span class="kr">extern</span> <span class="k">from</span> <span class="s">&quot;perturbation_first.hpp&quot;</span><span class="p">:</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">4</span>:     <span class="k">cdef</span> <span class="kt">double</span> <span class="nf">first_order</span><span class="p">(</span><span class="n">double</span> <span class="n">mass</span><span class="p">,</span> <span class="n">double</span> <span class="n">z_ini</span><span class="p">,</span> <span class="n">double</span> <span class="n">rtols</span><span class="p">[</span><span class="mf">3</span><span class="p">],</span> <span class="n">double</span> <span class="n">atols</span><span class="p">[</span><span class="mf">3</span><span class="p">],</span> <span class="n">double</span> <span class="n">r_here</span><span class="p">,</span> <span class="nb">int</span> <span class="n">N_GaussLaguerre</span><span class="p">,</span> <span class="n">double</span> <span class="n">Tnu</span><span class="p">)</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">5</span>: </pre>
-<pre class="cython line score-114" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">6</span>: <span class="k">cpdef</span> <span class="nf">py_first_order</span><span class="p">(</span><span class="n">double</span> <span class="n">mass</span><span class="p">,</span> <span class="n">double</span> <span class="n">z_ini</span><span class="p">,</span> <span class="n">double</span><span class="p">[::</span><span class="mf">1</span><span class="p">]</span> <span class="n">rtols</span><span class="p">,</span> <span class="n">double</span><span class="p">[::</span><span class="mf">1</span><span class="p">]</span> <span class="n">atols</span><span class="p">,</span> <span class="n">double</span> <span class="n">r_here</span><span class="p">,</span> <span class="nb">int</span> <span class="n">N_GaussLaguerre</span><span class="p">,</span> <span class="n">double</span> <span class="n">Tnu</span><span class="o">=</span><span class="mf">0.0001676375864435959</span><span class="p">):</span></pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">02</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">03</span>: <span class="k">cdef</span> <span class="kr">extern</span> <span class="k">from</span> <span class="s">&quot;perturbation_first.hpp&quot;</span><span class="p">:</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">04</span>:     <span class="k">cdef</span> <span class="kt">double</span> <span class="nf">first_order</span><span class="p">(</span><span class="n">double</span> <span class="n">mass</span><span class="p">,</span> <span class="n">double</span> <span class="n">z_ini</span><span class="p">,</span> <span class="n">double</span> <span class="n">rtols</span><span class="p">[</span><span class="mf">3</span><span class="p">],</span> <span class="n">double</span> <span class="n">atols</span><span class="p">[</span><span class="mf">3</span><span class="p">],</span> <span class="n">double</span> <span class="n">r_here</span><span class="p">,</span> <span class="nb">int</span> <span class="n">N_GaussLaguerre</span><span class="p">,</span> <span class="n">double</span> <span class="n">Tnu</span><span class="p">)</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">05</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">06</span>: <span class="k">cdef</span> <span class="kr">extern</span> <span class="k">from</span> <span class="s">&quot;perturbation_second.hpp&quot;</span><span class="p">:</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">07</span>:     <span class="k">cdef</span> <span class="kt">double</span> <span class="nf">second_order</span><span class="p">(</span><span class="n">double</span> <span class="n">mass</span><span class="p">,</span> <span class="n">double</span> <span class="n">z_ini</span><span class="p">,</span> <span class="n">double</span> <span class="n">rtols</span><span class="p">[</span><span class="mf">4</span><span class="p">],</span> <span class="n">double</span> <span class="n">atols</span><span class="p">[</span><span class="mf">4</span><span class="p">],</span> <span class="n">double</span> <span class="n">r_here</span><span class="p">,</span> <span class="nb">int</span> <span class="n">N_GaussLaguerre</span><span class="p">,</span> <span class="n">double</span> <span class="n">Tnu</span><span class="p">)</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">08</span>: </pre>
+<pre class="cython line score-114" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">09</span>: <span class="k">cpdef</span> <span class="nf">py_first_order</span><span class="p">(</span><span class="n">double</span> <span class="n">mass</span><span class="p">,</span> <span class="n">double</span> <span class="n">z_ini</span><span class="p">,</span> <span class="n">double</span><span class="p">[::</span><span class="mf">1</span><span class="p">]</span> <span class="n">rtols</span><span class="p">,</span> <span class="n">double</span><span class="p">[::</span><span class="mf">1</span><span class="p">]</span> <span class="n">atols</span><span class="p">,</span> <span class="n">double</span> <span class="n">r_here</span><span class="p">,</span> <span class="nb">int</span> <span class="n">N_GaussLaguerre</span><span class="p">,</span> <span class="n">double</span> <span class="n">Tnu</span><span class="o">=</span><span class="mf">0.0001676375864435959</span><span class="p">):</span></pre>
 <pre class='cython code score-114 '>static PyObject *__pyx_pw_12kftneutrinos_1py_first_order(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
 static PyObject *__pyx_f_12kftneutrinos_py_first_order(double __pyx_v_mass, double __pyx_v_z_ini, __Pyx_memviewslice __pyx_v_rtols, __Pyx_memviewslice __pyx_v_atols, double __pyx_v_r_here, int __pyx_v_N_GaussLaguerre, CYTHON_UNUSED int __pyx_skip_dispatch, struct __pyx_opt_args_12kftneutrinos_py_first_order *__pyx_optional_args) {
   double __pyx_v_Tnu = ((double)0.0001676375864435959);
@@ -449,31 +452,31 @@ static PyObject *__pyx_pw_12kftneutrinos_1py_first_order(PyObject *__pyx_self, P
         case  1:
         if (likely((values[1] = <span class='pyx_c_api'>__Pyx_PyDict_GetItemStr</span>(__pyx_kwds, __pyx_n_s_z_ini)) != 0)) kw_args--;
         else {
-          <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("py_first_order", 0, 6, 7, 1); <span class='error_goto'>__PYX_ERR(0, 6, __pyx_L3_error)</span>
+          <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("py_first_order", 0, 6, 7, 1); <span class='error_goto'>__PYX_ERR(0, 9, __pyx_L3_error)</span>
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = <span class='pyx_c_api'>__Pyx_PyDict_GetItemStr</span>(__pyx_kwds, __pyx_n_s_rtols)) != 0)) kw_args--;
         else {
-          <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("py_first_order", 0, 6, 7, 2); <span class='error_goto'>__PYX_ERR(0, 6, __pyx_L3_error)</span>
+          <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("py_first_order", 0, 6, 7, 2); <span class='error_goto'>__PYX_ERR(0, 9, __pyx_L3_error)</span>
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = <span class='pyx_c_api'>__Pyx_PyDict_GetItemStr</span>(__pyx_kwds, __pyx_n_s_atols)) != 0)) kw_args--;
         else {
-          <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("py_first_order", 0, 6, 7, 3); <span class='error_goto'>__PYX_ERR(0, 6, __pyx_L3_error)</span>
+          <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("py_first_order", 0, 6, 7, 3); <span class='error_goto'>__PYX_ERR(0, 9, __pyx_L3_error)</span>
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = <span class='pyx_c_api'>__Pyx_PyDict_GetItemStr</span>(__pyx_kwds, __pyx_n_s_r_here)) != 0)) kw_args--;
         else {
-          <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("py_first_order", 0, 6, 7, 4); <span class='error_goto'>__PYX_ERR(0, 6, __pyx_L3_error)</span>
+          <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("py_first_order", 0, 6, 7, 4); <span class='error_goto'>__PYX_ERR(0, 9, __pyx_L3_error)</span>
         }
         CYTHON_FALLTHROUGH;
         case  5:
         if (likely((values[5] = <span class='pyx_c_api'>__Pyx_PyDict_GetItemStr</span>(__pyx_kwds, __pyx_n_s_N_GaussLaguerre)) != 0)) kw_args--;
         else {
-          <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("py_first_order", 0, 6, 7, 5); <span class='error_goto'>__PYX_ERR(0, 6, __pyx_L3_error)</span>
+          <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("py_first_order", 0, 6, 7, 5); <span class='error_goto'>__PYX_ERR(0, 9, __pyx_L3_error)</span>
         }
         CYTHON_FALLTHROUGH;
         case  6:
@@ -483,7 +486,7 @@ static PyObject *__pyx_pw_12kftneutrinos_1py_first_order(PyObject *__pyx_self, P
         }
       }
       if (unlikely(kw_args &gt; 0)) {
-        if (unlikely(<span class='pyx_c_api'>__Pyx_ParseOptionalKeywords</span>(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "py_first_order") &lt; 0)) <span class='error_goto'>__PYX_ERR(0, 6, __pyx_L3_error)</span>
+        if (unlikely(<span class='pyx_c_api'>__Pyx_ParseOptionalKeywords</span>(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "py_first_order") &lt; 0)) <span class='error_goto'>__PYX_ERR(0, 9, __pyx_L3_error)</span>
       }
     } else {
       switch (<span class='py_macro_api'>PyTuple_GET_SIZE</span>(__pyx_args)) {
@@ -499,21 +502,21 @@ static PyObject *__pyx_pw_12kftneutrinos_1py_first_order(PyObject *__pyx_self, P
         default: goto __pyx_L5_argtuple_error;
       }
     }
-    __pyx_v_mass = __pyx_<span class='py_c_api'>PyFloat_AsDouble</span>(values[0]); if (unlikely((__pyx_v_mass == (double)-1) &amp;&amp; <span class='py_c_api'>PyErr_Occurred</span>())) <span class='error_goto'>__PYX_ERR(0, 6, __pyx_L3_error)</span>
-    __pyx_v_z_ini = __pyx_<span class='py_c_api'>PyFloat_AsDouble</span>(values[1]); if (unlikely((__pyx_v_z_ini == (double)-1) &amp;&amp; <span class='py_c_api'>PyErr_Occurred</span>())) <span class='error_goto'>__PYX_ERR(0, 6, __pyx_L3_error)</span>
-    __pyx_v_rtols = <span class='pyx_c_api'>__Pyx_PyObject_to_MemoryviewSlice_dc_double</span>(values[2], PyBUF_WRITABLE);<span class='error_goto'> if (unlikely(!__pyx_v_rtols.memview)) __PYX_ERR(0, 6, __pyx_L3_error)</span>
-    __pyx_v_atols = <span class='pyx_c_api'>__Pyx_PyObject_to_MemoryviewSlice_dc_double</span>(values[3], PyBUF_WRITABLE);<span class='error_goto'> if (unlikely(!__pyx_v_atols.memview)) __PYX_ERR(0, 6, __pyx_L3_error)</span>
-    __pyx_v_r_here = __pyx_<span class='py_c_api'>PyFloat_AsDouble</span>(values[4]); if (unlikely((__pyx_v_r_here == (double)-1) &amp;&amp; <span class='py_c_api'>PyErr_Occurred</span>())) <span class='error_goto'>__PYX_ERR(0, 6, __pyx_L3_error)</span>
-    __pyx_v_N_GaussLaguerre = <span class='pyx_c_api'>__Pyx_PyInt_As_int</span>(values[5]); if (unlikely((__pyx_v_N_GaussLaguerre == (int)-1) &amp;&amp; <span class='py_c_api'>PyErr_Occurred</span>())) <span class='error_goto'>__PYX_ERR(0, 6, __pyx_L3_error)</span>
+    __pyx_v_mass = __pyx_<span class='py_c_api'>PyFloat_AsDouble</span>(values[0]); if (unlikely((__pyx_v_mass == (double)-1) &amp;&amp; <span class='py_c_api'>PyErr_Occurred</span>())) <span class='error_goto'>__PYX_ERR(0, 9, __pyx_L3_error)</span>
+    __pyx_v_z_ini = __pyx_<span class='py_c_api'>PyFloat_AsDouble</span>(values[1]); if (unlikely((__pyx_v_z_ini == (double)-1) &amp;&amp; <span class='py_c_api'>PyErr_Occurred</span>())) <span class='error_goto'>__PYX_ERR(0, 9, __pyx_L3_error)</span>
+    __pyx_v_rtols = <span class='pyx_c_api'>__Pyx_PyObject_to_MemoryviewSlice_dc_double</span>(values[2], PyBUF_WRITABLE);<span class='error_goto'> if (unlikely(!__pyx_v_rtols.memview)) __PYX_ERR(0, 9, __pyx_L3_error)</span>
+    __pyx_v_atols = <span class='pyx_c_api'>__Pyx_PyObject_to_MemoryviewSlice_dc_double</span>(values[3], PyBUF_WRITABLE);<span class='error_goto'> if (unlikely(!__pyx_v_atols.memview)) __PYX_ERR(0, 9, __pyx_L3_error)</span>
+    __pyx_v_r_here = __pyx_<span class='py_c_api'>PyFloat_AsDouble</span>(values[4]); if (unlikely((__pyx_v_r_here == (double)-1) &amp;&amp; <span class='py_c_api'>PyErr_Occurred</span>())) <span class='error_goto'>__PYX_ERR(0, 9, __pyx_L3_error)</span>
+    __pyx_v_N_GaussLaguerre = <span class='pyx_c_api'>__Pyx_PyInt_As_int</span>(values[5]); if (unlikely((__pyx_v_N_GaussLaguerre == (int)-1) &amp;&amp; <span class='py_c_api'>PyErr_Occurred</span>())) <span class='error_goto'>__PYX_ERR(0, 9, __pyx_L3_error)</span>
     if (values[6]) {
-      __pyx_v_Tnu = __pyx_<span class='py_c_api'>PyFloat_AsDouble</span>(values[6]); if (unlikely((__pyx_v_Tnu == (double)-1) &amp;&amp; <span class='py_c_api'>PyErr_Occurred</span>())) <span class='error_goto'>__PYX_ERR(0, 6, __pyx_L3_error)</span>
+      __pyx_v_Tnu = __pyx_<span class='py_c_api'>PyFloat_AsDouble</span>(values[6]); if (unlikely((__pyx_v_Tnu == (double)-1) &amp;&amp; <span class='py_c_api'>PyErr_Occurred</span>())) <span class='error_goto'>__PYX_ERR(0, 9, __pyx_L3_error)</span>
     } else {
       __pyx_v_Tnu = ((double)0.0001676375864435959);
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("py_first_order", 0, 6, 7, <span class='py_macro_api'>PyTuple_GET_SIZE</span>(__pyx_args)); <span class='error_goto'>__PYX_ERR(0, 6, __pyx_L3_error)</span>
+  <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("py_first_order", 0, 6, 7, <span class='py_macro_api'>PyTuple_GET_SIZE</span>(__pyx_args)); <span class='error_goto'>__PYX_ERR(0, 9, __pyx_L3_error)</span>
   __pyx_L3_error:;
   <span class='pyx_c_api'>__Pyx_AddTraceback</span>("kftneutrinos.py_first_order", __pyx_clineno, __pyx_lineno, __pyx_filename);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
@@ -534,11 +537,11 @@ static PyObject *__pyx_pf_12kftneutrinos_py_first_order(CYTHON_UNUSED PyObject *
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("py_first_order", 0);
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_r);
-  if (unlikely(!__pyx_v_rtols.memview)) { <span class='pyx_c_api'>__Pyx_RaiseUnboundLocalError</span>("rtols"); <span class='error_goto'>__PYX_ERR(0, 6, __pyx_L1_error)</span> }
-  if (unlikely(!__pyx_v_atols.memview)) { <span class='pyx_c_api'>__Pyx_RaiseUnboundLocalError</span>("atols"); <span class='error_goto'>__PYX_ERR(0, 6, __pyx_L1_error)</span> }
+  if (unlikely(!__pyx_v_rtols.memview)) { <span class='pyx_c_api'>__Pyx_RaiseUnboundLocalError</span>("rtols"); <span class='error_goto'>__PYX_ERR(0, 9, __pyx_L1_error)</span> }
+  if (unlikely(!__pyx_v_atols.memview)) { <span class='pyx_c_api'>__Pyx_RaiseUnboundLocalError</span>("atols"); <span class='error_goto'>__PYX_ERR(0, 9, __pyx_L1_error)</span> }
   __pyx_t_2.__pyx_n = 1;
   __pyx_t_2.Tnu = __pyx_v_Tnu;
-  __pyx_t_1 = __pyx_f_12kftneutrinos_py_first_order(__pyx_v_mass, __pyx_v_z_ini, __pyx_v_rtols, __pyx_v_atols, __pyx_v_r_here, __pyx_v_N_GaussLaguerre, 0, &amp;__pyx_t_2);<span class='error_goto'> if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)</span>
+  __pyx_t_1 = __pyx_f_12kftneutrinos_py_first_order(__pyx_v_mass, __pyx_v_z_ini, __pyx_v_rtols, __pyx_v_atols, __pyx_v_r_here, __pyx_v_N_GaussLaguerre, 0, &amp;__pyx_t_2);<span class='error_goto'> if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -561,7 +564,7 @@ struct __pyx_opt_args_12kftneutrinos_py_first_order {
   int __pyx_n;
   double Tnu;
 };
-</pre><pre class="cython line score-4" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">7</span>:     <span class="n">integral</span> <span class="o">=</span> <span class="n">first_order</span><span class="p">(</span><span class="n">mass</span><span class="p">,</span> <span class="n">z_ini</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">rtols</span><span class="p">[</span><span class="mf">0</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">atols</span><span class="p">[</span><span class="mf">0</span><span class="p">],</span> <span class="n">r_here</span><span class="p">,</span> <span class="n">N_GaussLaguerre</span><span class="p">,</span> <span class="n">Tnu</span><span class="p">)</span></pre>
+</pre><pre class="cython line score-4" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">10</span>:     <span class="n">integral</span> <span class="o">=</span> <span class="n">first_order</span><span class="p">(</span><span class="n">mass</span><span class="p">,</span> <span class="n">z_ini</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">rtols</span><span class="p">[</span><span class="mf">0</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">atols</span><span class="p">[</span><span class="mf">0</span><span class="p">],</span> <span class="n">r_here</span><span class="p">,</span> <span class="n">N_GaussLaguerre</span><span class="p">,</span> <span class="n">Tnu</span><span class="p">)</span></pre>
 <pre class='cython code score-4 '>  __pyx_t_1 = 0;
   __pyx_t_2 = -1;
   if (__pyx_t_1 &lt; 0) {
@@ -570,7 +573,7 @@ struct __pyx_opt_args_12kftneutrinos_py_first_order {
   } else if (unlikely(__pyx_t_1 &gt;= __pyx_v_rtols.shape[0])) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     <span class='pyx_c_api'>__Pyx_RaiseBufferIndexError</span>(__pyx_t_2);
-    <span class='error_goto'>__PYX_ERR(0, 7, __pyx_L1_error)</span>
+    <span class='error_goto'>__PYX_ERR(0, 10, __pyx_L1_error)</span>
   }
   __pyx_t_3 = 0;
   __pyx_t_2 = -1;
@@ -580,12 +583,225 @@ struct __pyx_opt_args_12kftneutrinos_py_first_order {
   } else if (unlikely(__pyx_t_3 &gt;= __pyx_v_atols.shape[0])) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     <span class='pyx_c_api'>__Pyx_RaiseBufferIndexError</span>(__pyx_t_2);
-    <span class='error_goto'>__PYX_ERR(0, 7, __pyx_L1_error)</span>
+    <span class='error_goto'>__PYX_ERR(0, 10, __pyx_L1_error)</span>
   }
   __pyx_v_integral = first_order(__pyx_v_mass, __pyx_v_z_ini, (&amp;(*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rtols.data) + __pyx_t_1)) )))), (&amp;(*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_atols.data) + __pyx_t_3)) )))), __pyx_v_r_here, __pyx_v_N_GaussLaguerre, __pyx_v_Tnu);
-</pre><pre class="cython line score-6" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">8</span>:     <span class="k">return</span> <span class="n">integral</span></pre>
+</pre><pre class="cython line score-6" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">11</span>:     <span class="k">return</span> <span class="n">integral</span></pre>
 <pre class='cython code score-6 '>  <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_r);
-  __pyx_t_4 = <span class='py_c_api'>PyFloat_FromDouble</span>(__pyx_v_integral);<span class='error_goto'> if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 8, __pyx_L1_error)</span>
+  __pyx_t_4 = <span class='py_c_api'>PyFloat_FromDouble</span>(__pyx_v_integral);<span class='error_goto'> if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 11, __pyx_L1_error)</span>
+  <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_4);
+  __pyx_r = __pyx_t_4;
+  __pyx_t_4 = 0;
+  goto __pyx_L0;
+</pre><pre class="cython line score-0">&#xA0;<span class="">12</span>: </pre>
+<pre class="cython line score-114" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">13</span>: <span class="k">cpdef</span> <span class="nf">py_second_order</span><span class="p">(</span><span class="n">double</span> <span class="n">mass</span><span class="p">,</span> <span class="n">double</span> <span class="n">z_ini</span><span class="p">,</span> <span class="n">double</span><span class="p">[::</span><span class="mf">1</span><span class="p">]</span> <span class="n">rtols</span><span class="p">,</span> <span class="n">double</span><span class="p">[::</span><span class="mf">1</span><span class="p">]</span> <span class="n">atols</span><span class="p">,</span> <span class="n">double</span> <span class="n">r_here</span><span class="p">,</span> <span class="nb">int</span> <span class="n">N_GaussLaguerre</span><span class="p">,</span> <span class="n">double</span> <span class="n">Tnu</span><span class="o">=</span><span class="mf">0.0001676375864435959</span><span class="p">):</span></pre>
+<pre class='cython code score-114 '>static PyObject *__pyx_pw_12kftneutrinos_3py_second_order(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_f_12kftneutrinos_py_second_order(double __pyx_v_mass, double __pyx_v_z_ini, __Pyx_memviewslice __pyx_v_rtols, __Pyx_memviewslice __pyx_v_atols, double __pyx_v_r_here, int __pyx_v_N_GaussLaguerre, CYTHON_UNUSED int __pyx_skip_dispatch, struct __pyx_opt_args_12kftneutrinos_py_second_order *__pyx_optional_args) {
+  double __pyx_v_Tnu = ((double)0.0001676375864435959);
+  double __pyx_v_integral;
+  PyObject *__pyx_r = NULL;
+  <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
+  <span class='refnanny'>__Pyx_RefNannySetupContext</span>("py_second_order", 0);
+  if (__pyx_optional_args) {
+    if (__pyx_optional_args-&gt;__pyx_n &gt; 0) {
+      __pyx_v_Tnu = __pyx_optional_args-&gt;Tnu;
+    }
+  }
+/* … */
+  /* function exit code */
+  __pyx_L1_error:;
+  <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_t_4);
+  <span class='pyx_c_api'>__Pyx_AddTraceback</span>("kftneutrinos.py_second_order", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  <span class='refnanny'>__Pyx_XGIVEREF</span>(__pyx_r);
+  <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static PyObject *__pyx_pw_12kftneutrinos_3py_second_order(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_12kftneutrinos_3py_second_order(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  double __pyx_v_mass;
+  double __pyx_v_z_ini;
+  __Pyx_memviewslice __pyx_v_rtols = { 0, 0, { 0 }, { 0 }, { 0 } };
+  __Pyx_memviewslice __pyx_v_atols = { 0, 0, { 0 }, { 0 }, { 0 } };
+  double __pyx_v_r_here;
+  int __pyx_v_N_GaussLaguerre;
+  double __pyx_v_Tnu;
+  PyObject *__pyx_r = 0;
+  <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
+  <span class='refnanny'>__Pyx_RefNannySetupContext</span>("py_second_order (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&amp;__pyx_n_s_mass,&amp;__pyx_n_s_z_ini,&amp;__pyx_n_s_rtols,&amp;__pyx_n_s_atols,&amp;__pyx_n_s_r_here,&amp;__pyx_n_s_N_GaussLaguerre,&amp;__pyx_n_s_Tnu,0};
+    PyObject* values[7] = {0,0,0,0,0,0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = <span class='py_macro_api'>PyTuple_GET_SIZE</span>(__pyx_args);
+      switch (pos_args) {
+        case  7: values[6] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 6);
+        CYTHON_FALLTHROUGH;
+        case  6: values[5] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 5);
+        CYTHON_FALLTHROUGH;
+        case  5: values[4] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 4);
+        CYTHON_FALLTHROUGH;
+        case  4: values[3] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 3);
+        CYTHON_FALLTHROUGH;
+        case  3: values[2] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 2);
+        CYTHON_FALLTHROUGH;
+        case  2: values[1] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = <span class='py_c_api'>PyDict_Size</span>(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = <span class='pyx_c_api'>__Pyx_PyDict_GetItemStr</span>(__pyx_kwds, __pyx_n_s_mass)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = <span class='pyx_c_api'>__Pyx_PyDict_GetItemStr</span>(__pyx_kwds, __pyx_n_s_z_ini)) != 0)) kw_args--;
+        else {
+          <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("py_second_order", 0, 6, 7, 1); <span class='error_goto'>__PYX_ERR(0, 13, __pyx_L3_error)</span>
+        }
+        CYTHON_FALLTHROUGH;
+        case  2:
+        if (likely((values[2] = <span class='pyx_c_api'>__Pyx_PyDict_GetItemStr</span>(__pyx_kwds, __pyx_n_s_rtols)) != 0)) kw_args--;
+        else {
+          <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("py_second_order", 0, 6, 7, 2); <span class='error_goto'>__PYX_ERR(0, 13, __pyx_L3_error)</span>
+        }
+        CYTHON_FALLTHROUGH;
+        case  3:
+        if (likely((values[3] = <span class='pyx_c_api'>__Pyx_PyDict_GetItemStr</span>(__pyx_kwds, __pyx_n_s_atols)) != 0)) kw_args--;
+        else {
+          <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("py_second_order", 0, 6, 7, 3); <span class='error_goto'>__PYX_ERR(0, 13, __pyx_L3_error)</span>
+        }
+        CYTHON_FALLTHROUGH;
+        case  4:
+        if (likely((values[4] = <span class='pyx_c_api'>__Pyx_PyDict_GetItemStr</span>(__pyx_kwds, __pyx_n_s_r_here)) != 0)) kw_args--;
+        else {
+          <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("py_second_order", 0, 6, 7, 4); <span class='error_goto'>__PYX_ERR(0, 13, __pyx_L3_error)</span>
+        }
+        CYTHON_FALLTHROUGH;
+        case  5:
+        if (likely((values[5] = <span class='pyx_c_api'>__Pyx_PyDict_GetItemStr</span>(__pyx_kwds, __pyx_n_s_N_GaussLaguerre)) != 0)) kw_args--;
+        else {
+          <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("py_second_order", 0, 6, 7, 5); <span class='error_goto'>__PYX_ERR(0, 13, __pyx_L3_error)</span>
+        }
+        CYTHON_FALLTHROUGH;
+        case  6:
+        if (kw_args &gt; 0) {
+          PyObject* value = <span class='pyx_c_api'>__Pyx_PyDict_GetItemStr</span>(__pyx_kwds, __pyx_n_s_Tnu);
+          if (value) { values[6] = value; kw_args--; }
+        }
+      }
+      if (unlikely(kw_args &gt; 0)) {
+        if (unlikely(<span class='pyx_c_api'>__Pyx_ParseOptionalKeywords</span>(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "py_second_order") &lt; 0)) <span class='error_goto'>__PYX_ERR(0, 13, __pyx_L3_error)</span>
+      }
+    } else {
+      switch (<span class='py_macro_api'>PyTuple_GET_SIZE</span>(__pyx_args)) {
+        case  7: values[6] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 6);
+        CYTHON_FALLTHROUGH;
+        case  6: values[5] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 5);
+        values[4] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 4);
+        values[3] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 3);
+        values[2] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 2);
+        values[1] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 1);
+        values[0] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 0);
+        break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+    }
+    __pyx_v_mass = __pyx_<span class='py_c_api'>PyFloat_AsDouble</span>(values[0]); if (unlikely((__pyx_v_mass == (double)-1) &amp;&amp; <span class='py_c_api'>PyErr_Occurred</span>())) <span class='error_goto'>__PYX_ERR(0, 13, __pyx_L3_error)</span>
+    __pyx_v_z_ini = __pyx_<span class='py_c_api'>PyFloat_AsDouble</span>(values[1]); if (unlikely((__pyx_v_z_ini == (double)-1) &amp;&amp; <span class='py_c_api'>PyErr_Occurred</span>())) <span class='error_goto'>__PYX_ERR(0, 13, __pyx_L3_error)</span>
+    __pyx_v_rtols = <span class='pyx_c_api'>__Pyx_PyObject_to_MemoryviewSlice_dc_double</span>(values[2], PyBUF_WRITABLE);<span class='error_goto'> if (unlikely(!__pyx_v_rtols.memview)) __PYX_ERR(0, 13, __pyx_L3_error)</span>
+    __pyx_v_atols = <span class='pyx_c_api'>__Pyx_PyObject_to_MemoryviewSlice_dc_double</span>(values[3], PyBUF_WRITABLE);<span class='error_goto'> if (unlikely(!__pyx_v_atols.memview)) __PYX_ERR(0, 13, __pyx_L3_error)</span>
+    __pyx_v_r_here = __pyx_<span class='py_c_api'>PyFloat_AsDouble</span>(values[4]); if (unlikely((__pyx_v_r_here == (double)-1) &amp;&amp; <span class='py_c_api'>PyErr_Occurred</span>())) <span class='error_goto'>__PYX_ERR(0, 13, __pyx_L3_error)</span>
+    __pyx_v_N_GaussLaguerre = <span class='pyx_c_api'>__Pyx_PyInt_As_int</span>(values[5]); if (unlikely((__pyx_v_N_GaussLaguerre == (int)-1) &amp;&amp; <span class='py_c_api'>PyErr_Occurred</span>())) <span class='error_goto'>__PYX_ERR(0, 13, __pyx_L3_error)</span>
+    if (values[6]) {
+      __pyx_v_Tnu = __pyx_<span class='py_c_api'>PyFloat_AsDouble</span>(values[6]); if (unlikely((__pyx_v_Tnu == (double)-1) &amp;&amp; <span class='py_c_api'>PyErr_Occurred</span>())) <span class='error_goto'>__PYX_ERR(0, 13, __pyx_L3_error)</span>
+    } else {
+      __pyx_v_Tnu = ((double)0.0001676375864435959);
+    }
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("py_second_order", 0, 6, 7, <span class='py_macro_api'>PyTuple_GET_SIZE</span>(__pyx_args)); <span class='error_goto'>__PYX_ERR(0, 13, __pyx_L3_error)</span>
+  __pyx_L3_error:;
+  <span class='pyx_c_api'>__Pyx_AddTraceback</span>("kftneutrinos.py_second_order", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_12kftneutrinos_2py_second_order(__pyx_self, __pyx_v_mass, __pyx_v_z_ini, __pyx_v_rtols, __pyx_v_atols, __pyx_v_r_here, __pyx_v_N_GaussLaguerre, __pyx_v_Tnu);
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+
+  /* function exit code */
+  <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_12kftneutrinos_2py_second_order(CYTHON_UNUSED PyObject *__pyx_self, double __pyx_v_mass, double __pyx_v_z_ini, __Pyx_memviewslice __pyx_v_rtols, __Pyx_memviewslice __pyx_v_atols, double __pyx_v_r_here, int __pyx_v_N_GaussLaguerre, double __pyx_v_Tnu) {
+  PyObject *__pyx_r = NULL;
+  <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
+  <span class='refnanny'>__Pyx_RefNannySetupContext</span>("py_second_order", 0);
+  <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_r);
+  if (unlikely(!__pyx_v_rtols.memview)) { <span class='pyx_c_api'>__Pyx_RaiseUnboundLocalError</span>("rtols"); <span class='error_goto'>__PYX_ERR(0, 13, __pyx_L1_error)</span> }
+  if (unlikely(!__pyx_v_atols.memview)) { <span class='pyx_c_api'>__Pyx_RaiseUnboundLocalError</span>("atols"); <span class='error_goto'>__PYX_ERR(0, 13, __pyx_L1_error)</span> }
+  __pyx_t_2.__pyx_n = 1;
+  __pyx_t_2.Tnu = __pyx_v_Tnu;
+  __pyx_t_1 = __pyx_f_12kftneutrinos_py_second_order(__pyx_v_mass, __pyx_v_z_ini, __pyx_v_rtols, __pyx_v_atols, __pyx_v_r_here, __pyx_v_N_GaussLaguerre, 0, &amp;__pyx_t_2);<span class='error_goto'> if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 13, __pyx_L1_error)</span>
+  <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L1_error:;
+  <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_t_1);
+  <span class='pyx_c_api'>__Pyx_AddTraceback</span>("kftneutrinos.py_second_order", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __PYX_XDEC_MEMVIEW(&amp;__pyx_v_rtols, 1);
+  __PYX_XDEC_MEMVIEW(&amp;__pyx_v_atols, 1);
+  <span class='refnanny'>__Pyx_XGIVEREF</span>(__pyx_r);
+  <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
+  return __pyx_r;
+}
+/* … */
+struct __pyx_opt_args_12kftneutrinos_py_second_order {
+  int __pyx_n;
+  double Tnu;
+};
+</pre><pre class="cython line score-4" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">14</span>:     <span class="n">integral</span> <span class="o">=</span> <span class="n">second_order</span><span class="p">(</span><span class="n">mass</span><span class="p">,</span> <span class="n">z_ini</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">rtols</span><span class="p">[</span><span class="mf">0</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">atols</span><span class="p">[</span><span class="mf">0</span><span class="p">],</span> <span class="n">r_here</span><span class="p">,</span> <span class="n">N_GaussLaguerre</span><span class="p">,</span> <span class="n">Tnu</span><span class="p">)</span></pre>
+<pre class='cython code score-4 '>  __pyx_t_1 = 0;
+  __pyx_t_2 = -1;
+  if (__pyx_t_1 &lt; 0) {
+    __pyx_t_1 += __pyx_v_rtols.shape[0];
+    if (unlikely(__pyx_t_1 &lt; 0)) __pyx_t_2 = 0;
+  } else if (unlikely(__pyx_t_1 &gt;= __pyx_v_rtols.shape[0])) __pyx_t_2 = 0;
+  if (unlikely(__pyx_t_2 != -1)) {
+    <span class='pyx_c_api'>__Pyx_RaiseBufferIndexError</span>(__pyx_t_2);
+    <span class='error_goto'>__PYX_ERR(0, 14, __pyx_L1_error)</span>
+  }
+  __pyx_t_3 = 0;
+  __pyx_t_2 = -1;
+  if (__pyx_t_3 &lt; 0) {
+    __pyx_t_3 += __pyx_v_atols.shape[0];
+    if (unlikely(__pyx_t_3 &lt; 0)) __pyx_t_2 = 0;
+  } else if (unlikely(__pyx_t_3 &gt;= __pyx_v_atols.shape[0])) __pyx_t_2 = 0;
+  if (unlikely(__pyx_t_2 != -1)) {
+    <span class='pyx_c_api'>__Pyx_RaiseBufferIndexError</span>(__pyx_t_2);
+    <span class='error_goto'>__PYX_ERR(0, 14, __pyx_L1_error)</span>
+  }
+  __pyx_v_integral = second_order(__pyx_v_mass, __pyx_v_z_ini, (&amp;(*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_rtols.data) + __pyx_t_1)) )))), (&amp;(*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_atols.data) + __pyx_t_3)) )))), __pyx_v_r_here, __pyx_v_N_GaussLaguerre, __pyx_v_Tnu);
+</pre><pre class="cython line score-6" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">15</span>:     <span class="k">return</span> <span class="n">integral</span></pre>
+<pre class='cython code score-6 '>  <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_r);
+  __pyx_t_4 = <span class='py_c_api'>PyFloat_FromDouble</span>(__pyx_v_integral);<span class='error_goto'> if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 15, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_4);
   __pyx_r = __pyx_t_4;
   __pyx_t_4 = 0;

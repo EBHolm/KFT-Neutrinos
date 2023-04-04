@@ -36,10 +36,6 @@ double rho0(double z, double Rs, double conc) {
     return _Mvir_/(4.0*std::numbers::pi*pow(Rs, 3.)*pow(1. + z, -3.)*(log(1. + conc) - conc/(1 + conc)));
 }
 
-double LapNFW(double r, double Rs) {
-    return 1.0/(r*pow(r + Rs, 2.));
-};
-
 double Green(double z, double mass) {
     /*  Involves evaluating the hypergeometric a=1/2, b=2/3, c=5/3 function approximately on the interval (-40, -5)
         We use a (4,4) MiniMax approximation with (12,12) as machine precision constructed using Horner form */
@@ -62,3 +58,25 @@ double Green(double z, double mass) {
     
     return -pow(1. + z, 2.)/(2.*_H0_kpc_*mass*sqrt(_OmegaL_))*num12/den12;
 }
+
+/*
+    Potential derivatives
+ 
+ */
+
+
+double LapNFW(double r, double Rs) {
+    return 1.0/(r*pow(r + Rs, 2.));
+};
+
+double R1(double r, double Rs) {
+    return pow(r, -3.)*(log((r + Rs)/Rs) - r/(r + Rs));
+};
+
+double R2(double r, double Rs) {
+    return -pow(r, -3.)*(3.*pow(r + Rs, 2.)*log((r + Rs)/Rs) - (r*(4.*r + 3.*Rs)))/pow(r*(r + Rs), 2.);
+};
+
+double R3(double r, double Rs) {
+    return pow(r, -3.)*(15.*pow(r + Rs, 3.)*log((r + Rs)/Rs) - r*(23.*r*r + 36.*r*Rs + 15.*Rs*Rs))/(pow(r, 4.)*pow(r + Rs, 3.));
+};
