@@ -69,6 +69,13 @@ double LapNFW(double r, double Rs) {
     return 1.0/(r*pow(r + Rs, 2.));
 };
 
+double LapNFWKepler(double r, double Rs, double Rvir) {
+    if (r <= Rvir) {
+        return 1.0/(r*pow(r + Rs, 2.));
+    }
+    return 0.;
+};
+
 double R1(double r, double Rs) {
     return pow(r, -3.)*(log((r + Rs)/Rs) - r/(r + Rs));
 };

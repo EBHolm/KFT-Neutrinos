@@ -24,7 +24,9 @@ struct FirstOrderArguments { // Could make this a struct now
     double Tnu;
     double r_here;
     double rr_here;
+    
     double conc;
+    double Rvir;
     double z_factor;
     double G0_Gz;
     double weight;
@@ -41,6 +43,9 @@ double integrand_z(double z, FirstOrderArguments args);
 double integrand_y(double y, FirstOrderArguments args);
 double integrand_theta(double theta, FirstOrderArguments args);
 double integrand_phi(double phi, FirstOrderArguments args);
+
+double integrand_y_complete(double y, double mass, double z_ini, double rtols[3], double atols[3], double r_here, int N_GaussLaguerre, double Tnu = 0.0001676375864435959);
+double integrand_z_complete(double z, FirstOrderArguments args);
 
 double integrand_stub(double y, FirstOrderArguments args);
 
