@@ -12,8 +12,4 @@ You should now be able to import the package `kftneutrinos` in Python.
 
 The Python package `kftneutrinos` gives access to the following functions. For more details on each computation method, see the paper `XXXX.XXXX`.
 
-* `py_first_order`: Computes the neutrino clustering factor to first order in kinetic field theory perturbation theory. 
-
-* `py_second_order`: Computes the neutrino clustering factor to second order in kinetic field theory perturbation theory.
-
-* `py_born`: Computes the neutrino clustering factor using the Born approximation in kinetic field theory.
+* `py_first_order`: Computes the neutrino clustering factor to first order in kinetic field theory perturbation theory. For an example of how to call the function, see `/notebooks/first_order.ipynb`.
