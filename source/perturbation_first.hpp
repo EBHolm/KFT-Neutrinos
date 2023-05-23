@@ -42,11 +42,7 @@ double first_order(double mass, double z_ini, double rtols[3], double atols[3], 
 double integrand_z(double z, FirstOrderArguments args);
 double integrand_y(double y, FirstOrderArguments args);
 double integrand_theta(double theta, FirstOrderArguments args);
-double integrand_phi(double phi, FirstOrderArguments args);
+double integrand_theta_free(double theta, FirstOrderArguments args);
 
-double integrand_y_complete(double y, double mass, double z_ini, double rtols[3], double atols[3], double r_here, int N_GaussLaguerre, double Tnu = 0.0001676375864435959);
-double integrand_z_complete(double z, FirstOrderArguments args);
-
-double integrand_stub(double y, FirstOrderArguments args);
 
 #endif /* perturbation_first_hpp */

@@ -75,15 +75,3 @@ double LapNFWKepler(double r, double Rs, double Rvir) {
     }
     return 0.;
 };
-
-double R1(double r, double Rs) {
-    return pow(r, -3.)*(log((r + Rs)/Rs) - r/(r + Rs));
-};
-
-double R2(double r, double Rs) {
-    return -pow(r, -3.)*(3.*pow(r + Rs, 2.)*log((r + Rs)/Rs) - (r*(4.*r + 3.*Rs)))/pow(r*(r + Rs), 2.);
-};
-
-double R3(double r, double Rs) {
-    return pow(r, -3.)*(15.*pow(r + Rs, 3.)*log((r + Rs)/Rs) - r*(23.*r*r + 36.*r*Rs + 15.*Rs*Rs))/(pow(r, 4.)*pow(r + Rs, 3.));
-};

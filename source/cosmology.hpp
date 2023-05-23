@@ -29,10 +29,5 @@ double Green(double z, double mass);
 double LapNFW(double r, double Rs);
 double LapNFWKepler(double r, double Rs, double Rvir);
 
-double R1(double r, double Rs);
-double R2(double r, double Rs);
-double R3(double r, double Rs);
-
-
 
 #endif /* cosmology_hpp */
