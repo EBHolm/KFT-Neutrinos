@@ -24,8 +24,7 @@ double integrand_z(double z, FirstOrderArguments args) {
     args.Rs = Rs(z, con, Hz);
     args.Rvir = args.Rs*args.conc;
     args.z_factor = 4.0*std::numbers::pi*_G_*rho0(z, args.Rs, con)*pow(args.Rs, 3.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
-    args.weight = args.mnu*args.G0_Gz/(1 + z)/Hz*args.z_factor;
-    // args = first_update_args_z(z, args);
+    args.weight = args.mnu*args.G0_Gz/Hz*pow(1 + z, -3.)*args.z_factor;
     double I = GaussLaguerre<FirstOrderArguments>(integrand_y, args.GaussLaguerreNodes, args);
     return I;
 };

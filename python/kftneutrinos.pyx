@@ -5,7 +5,6 @@ cdef extern from "perturbation_first.hpp":
     cdef double first_order(double mass, double z_ini, double rtols[3], double atols[3], double r_here, int N_GaussLaguerre, double Tnu)
     cdef double integrand_y_complete(double y, double mass, double z_ini, double rtols[2], double atols[2], double r_here, int N_GaussLaguerre, double Tnu);
 
-    
 cdef extern from "perturbation_second.hpp":
     cdef double second_order(double mass, double z_ini, double rtols[4], double atols[4], double r_here, int N_GaussLaguerre, double Tnu)
 
