@@ -25,9 +25,9 @@ double integrand_z2(double z2, SecondOrderArguments args) {
     args.G0_Gz2 = args.G0 - args.Gz2;
     args.Rs2 = Rs(z2, conc2, Hz2);
     args.Rvir2 = args.Rs2*conc2;
-    args.front_factor2 = 4.0*std::numbers::pi*_G_*rho0(z2, args.Rs2, conc2)*pow(args.Rs2, 3.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
+    args.front_factor2 = 4.0*std::numbers::pi*_G_*rho0(z2, args.Rs2, conc2)*pow(args.Rs2, 3.)*pow(1 + z2, -2.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
     
-    args.weight = args.mnu*args.G0_Gz2/Hz2*pow(1 + z2, -3.);
+    args.weight = args.mnu*args.G0_Gz2/Hz2/(1 + z2);
     auto [I, err] = GaussKronrod<SecondOrderArguments>(integrand_z1, z2, args.z_ini, args.rtols[1], args.atols[1], args);
     return I;
 }
@@ -41,11 +41,11 @@ double integrand_z1(double z1, SecondOrderArguments args) {
     args.Gz2_Gz1 = args.Gz2 - Gz1;
     args.xGz1pGz2 = args.r_here*(args.G0_Gz1 + args.G0_Gz2);
     args.Rs1 = Rs(z1, conc1, Hz1);
-    args.Rvir1 = args.Rs2*conc1;
-    args.front_factor1 = 4.0*std::numbers::pi*_G_*rho0(z1, args.Rs1, conc1)*pow(args.Rs1, 3.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
+    args.Rvir1 = args.Rs1*conc1;
+    args.front_factor1 = 4.0*std::numbers::pi*_G_*rho0(z1, args.Rs1, conc1)*pow(args.Rs1, 3.)*pow(1 + z1, -2.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
     
     // Note Gz2_Gz1 instead of G0_Gz1
-    args.weight *= args.mnu*args.Gz2_Gz1/Hz1*pow(1 + z1, -3.);
+    args.weight *= args.mnu/Hz1/(1 + z1);
     // Future: Use pre-computed GL nodes+weights instead
     double I = GaussLaguerre<SecondOrderArguments>(integrand_y, args.GaussLaguerreNodes, args);
     return I;
@@ -77,7 +77,7 @@ double integrand_theta(double theta, SecondOrderArguments args) {
     if ((y1 <= args.Rvir1) && (y2 <= args.Rvir2)) {
         // both within Rvir
         // term1 vanishes except when both are within
-        term1 = args.front_factor1*args.front_factor2/(y1*y2*pow((y1 + args.Rs1)*(y2 + args.Rs2), 2.));
+        term1 = args.G0_Gz1*args.front_factor1*args.front_factor2/(y1*y2*pow((y1 + args.Rs1)*(y2 + args.Rs2), 2.));
     }
     
     // computation of term 2, the (3,1) term
@@ -85,11 +85,12 @@ double integrand_theta(double theta, SecondOrderArguments args) {
         // term 2 always vanishes if y2 is outside
         if (y1 <= args.Rvir1) {
             // both within Rvir
-            term2 = -args.front_factor1*args.front_factor2*y1_dot_y2*(3*y2 + args.Rs2)/pow(y1*y2*(y2 + args.Rs2), 3.)*((y1 + args.Rs1)*log((y1 + args.Rs1)/args.Rs1) - y1/(y1 + args.Rs1));
+            // term2 = -args.Gz2_Gz1*args.front_factor1*args.front_factor2*y1_dot_y2*(3*y2 + args.Rs2)/pow(y1*y2*(y2 + args.Rs2), 3.)*((y1 + args.Rs1)*log((y1 + args.Rs1)/args.Rs1) - y1/(y1 + args.Rs1));
+            term2 = -args.Gz2_Gz1*args.front_factor1*args.front_factor2*y1_dot_y2*(3*y2 + args.Rs2)/pow(y1*y2*(y2 + args.Rs2), 3.)*(log((y1 + args.Rs1)/args.Rs1) - y1/(y1 + args.Rs1));
         }
         else {
             // y2 inside, y1 outside; use Kepler for y1
-            term2 = -args.front_factor2*y1_dot_y2*(3*y2 + args.Rs2)/pow(y1*y2*(y2 + args.Rs2), 3.)*_G_*_Mvir_*pow(1 + args.z1, 3.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
+            term2 = -args.Gz2_Gz1*args.front_factor2*y1_dot_y2*(3*y2 + args.Rs2)/pow(y1*y2*(y2 + args.Rs2), 3.)*_G_*_Mvir_*pow(1 + args.z1, 3.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
         }
     }
     return 2.*std::numbers::pi*args.weight*(term1 - term2);
