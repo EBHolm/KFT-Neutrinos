@@ -91,3 +91,40 @@ double integrand_theta(double theta, SecondOrderArguments args) {
     }
     return 2.*std::numbers::pi*args.weight*(term1 - term2);
 }
+
+double integrand_z2z1(double z2, double z1, double mass, double z_ini, double rtols[4], double atols[4], double r_here, int N_GaussLaguerre, double Tnu) {
+    /* Used for plotting the integrand in the (z2, z1)-plane */
+    
+    // General args
+    SecondOrderArguments args = {{rtols[0], rtols[1], rtols[2], rtols[3]},
+                                 {atols[0], atols[1], atols[2], atols[3]},
+                                 N_GaussLaguerre, mass, Tnu, r_here, r_here*r_here};
+    args.G0 = Green(0, mass);
+    args.z_ini = z_ini;
+    
+    // z2 args
+    double Hz2 = H(z2);
+    double conc2 = conc(z2);
+    args.Gz2 = Green(z2, args.mnu);
+    args.G0_Gz2 = args.G0 - args.Gz2;
+    args.Rs2 = Rs(z2, conc2, Hz2);
+    args.Rvir2 = args.Rs2*conc2;
+    args.front_factor2 = 4.0*std::numbers::pi*_G_*rho0(z2, args.Rs2, conc2)*pow(args.Rs2, 3.)*pow(1 + z2, -2.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
+    args.weight = args.mnu*args.G0_Gz2/Hz2/(1 + z2);
+    
+    // z1 args
+    double Hz1 = H(z1);
+    double conc1 = conc(z1);
+    double Gz1 = Green(z1, args.mnu);
+    args.z1 = z1;
+    args.G0_Gz1 = args.G0 - Gz1;
+    args.Gz2_Gz1 = args.Gz2 - Gz1;
+    args.Rs1 = Rs(z1, conc1, Hz1);
+    args.Rvir1 = args.Rs1*conc1;
+    args.front_factor1 = 4.0*std::numbers::pi*_G_*rho0(z1, args.Rs1, conc1)*pow(args.Rs1, 3.)*pow(1 + z1, -2.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
+    args.weight *= args.mnu/Hz1/(1 + z1);
+    
+    double I = GaussLaguerre<SecondOrderArguments>(integrand_y, args.GaussLaguerreNodes, args);
+    return I;
+}
+

@@ -60,6 +60,6 @@ double integrand_y(double y, SecondOrderArguments args);
 
 double integrand_theta(double theta, SecondOrderArguments args);
 
-
+double integrand_z2z1(double z2, double z1, double mass, double z_ini, double rtols[4], double atols[4], double r_here, int N_GaussLaguerre, double Tnu = 0.0001676375864435959);
 
 #endif /* perturbation_second_hpp */
