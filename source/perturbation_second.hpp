@@ -33,16 +33,13 @@ struct SecondOrderArguments {
     double G0_Gz2;
     double Rs2;
     double Rvir2;
-    // double rho0_z2;
     double front_factor2;
     
     double G0_Gz1;
     double Gz2_Gz1;
-    double xGz1pGz2;
     double Rs1;
     double Rvir1;
     double z1;
-    // double rho0_z1;
     double front_factor1; // = 4.*std::numbers::pi*rho0(z, Rs, conc)*pow(Rs, 3.)*pow(r, -3.);
     
     

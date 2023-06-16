@@ -39,12 +39,10 @@ double integrand_z1(double z1, SecondOrderArguments args) {
     args.z1 = z1;
     args.G0_Gz1 = args.G0 - Gz1;
     args.Gz2_Gz1 = args.Gz2 - Gz1;
-    args.xGz1pGz2 = args.r_here*(args.G0_Gz1 + args.G0_Gz2);
     args.Rs1 = Rs(z1, conc1, Hz1);
     args.Rvir1 = args.Rs1*conc1;
     args.front_factor1 = 4.0*std::numbers::pi*_G_*rho0(z1, args.Rs1, conc1)*pow(args.Rs1, 3.)*pow(1 + z1, -2.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
-    
-    // Note Gz2_Gz1 instead of G0_Gz1
+
     args.weight *= args.mnu/Hz1/(1 + z1);
     // Future: Use pre-computed GL nodes+weights instead
     double I = GaussLaguerre<SecondOrderArguments>(integrand_y, args.GaussLaguerreNodes, args);
@@ -54,7 +52,6 @@ double integrand_z1(double z1, SecondOrderArguments args) {
 double integrand_y(double y, SecondOrderArguments args) {
     args.p = args.Tnu*y;
     args.gp1 = args.p*args.G0_Gz1;
-    // args.gp1 = args.p*args.Gz2_Gz1;
     args.gp2 = args.p*args.G0_Gz2;
     args.y_a1 = args.rr_here + pow(args.gp1, 2.);
     args.y_a2 = args.rr_here + pow(args.gp2, 2.);
@@ -68,7 +65,7 @@ double integrand_theta(double theta, SecondOrderArguments args) {
     double costheta = cos(theta);
     double y1 = sqrt(args.y_a1 - 2.*args.gp1*args.r_here*costheta);
     double y2 = sqrt(args.y_a2 - 2.*args.gp2*args.r_here*costheta);
-    double y1_dot_y2 = args.rr_here + args.p*(args.p*args.G0_Gz2*args.G0_Gz1 - costheta*args.xGz1pGz2);
+    double y1_dot_y2 = args.rr_here + args.gp1*args.gp2 - costheta*args.r_here*(args.gp1 + args.gp2);
     args.weight *= sin(theta);
     double term1 = 0.;
     double term2 = 0.;
@@ -85,7 +82,6 @@ double integrand_theta(double theta, SecondOrderArguments args) {
         // term 2 always vanishes if y2 is outside
         if (y1 <= args.Rvir1) {
             // both within Rvir
-            // term2 = -args.Gz2_Gz1*args.front_factor1*args.front_factor2*y1_dot_y2*(3*y2 + args.Rs2)/pow(y1*y2*(y2 + args.Rs2), 3.)*((y1 + args.Rs1)*log((y1 + args.Rs1)/args.Rs1) - y1/(y1 + args.Rs1));
             term2 = -args.Gz2_Gz1*args.front_factor1*args.front_factor2*y1_dot_y2*(3*y2 + args.Rs2)/pow(y1*y2*(y2 + args.Rs2), 3.)*(log((y1 + args.Rs1)/args.Rs1) - y1/(y1 + args.Rs1));
         }
         else {
