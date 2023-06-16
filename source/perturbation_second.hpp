@@ -12,10 +12,6 @@
 #include "quadrature.hpp"
 
 struct SecondOrderArguments {
-    /*
-        TO DO: REMOVE UNNEEDED ARGUMENTS!
-     
-     */
     double rtols[4];
     double atols[4];
     int GaussLaguerreNodes;
