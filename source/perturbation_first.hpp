@@ -11,7 +11,6 @@
 #include <numbers>
 
 #include "quadrature.hpp"
-#include "utils.hpp"
 #include "cosmology.hpp"
 
 

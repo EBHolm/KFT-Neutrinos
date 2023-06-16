@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8D26059529BE55D5007C783B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8D26059429BE55D5007C783B /* main.cpp */; };
-		8D2605A129BE55FB007C783B /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8D26059729BE55FB007C783B /* utils.cpp */; };
 		8D2605A229BE55FB007C783B /* cosmology.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8D26059929BE55FB007C783B /* cosmology.cpp */; };
 		8D2605A329BE55FB007C783B /* quadrature.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8D26059B29BE55FB007C783B /* quadrature.cpp */; };
 		8D2605A429BE55FB007C783B /* perturbation_first.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8D26059D29BE55FB007C783B /* perturbation_first.cpp */; };
@@ -149,7 +148,6 @@
 				8D2605A429BE55FB007C783B /* perturbation_first.cpp in Sources */,
 				8D2605A229BE55FB007C783B /* cosmology.cpp in Sources */,
 				8D2605A529BE55FB007C783B /* perturbation_second.cpp in Sources */,
-				8D2605A129BE55FB007C783B /* utils.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

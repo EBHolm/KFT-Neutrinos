@@ -12,7 +12,6 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
-#include "utils.hpp"
 
 /*
     Adaptive Gauss-Kronrod quadrature
