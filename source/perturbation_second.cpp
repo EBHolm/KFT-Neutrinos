@@ -86,7 +86,7 @@ double integrand_theta(double theta, SecondOrderArguments args) {
         }
         else {
             // y2 inside, y1 outside; use Kepler for y1
-            term2 = -args.Gz2_Gz1*args.front_factor2*y1_dot_y2*(3*y2 + args.Rs2)/pow(y1*y2*(y2 + args.Rs2), 3.)*_G_*_Mvir_*pow(1 + args.z1, 3.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
+            term2 = -args.Gz2_Gz1*args.front_factor2*y1_dot_y2*(3*y2 + args.Rs2)/pow(y1*y2*(y2 + args.Rs2), 3.)*_G_*_Mvir_*pow(1 + args.z1, 1.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
         }
     }
     return 2.*std::numbers::pi*args.weight*(term1 - term2);
