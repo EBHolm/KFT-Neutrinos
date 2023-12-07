@@ -9,7 +9,8 @@
 #include <stdexcept>
 #include <string>
 #include "perturbation_first.hpp"
-#include "perturbation_second.hpp"
+#include "perturbation_second_kft.hpp"
+#include "perturbation_second_vlasov.hpp"
 
 int main(int argc, const char * argv[]) {
     /*
@@ -19,7 +20,7 @@ int main(int argc, const char * argv[]) {
     const double mass = std::stod(argv[1]);
     */
     
-    double mass = 0.1;
+    double mass = 0.01;
     double r_here = 8.2;
     
     double rtols[3] = {1e-6, 1e-4, 1e-4};
@@ -38,8 +39,11 @@ int main(int argc, const char * argv[]) {
     std::cout << "First order: " << first << ", corresponding to a clustering factor " << 1+first/analytical_free << " with m=" << mass << " eV.\n";
     
     
-    double second = second_order(mass, 3.0, rtols_2, atols_2, r_here, GaussLaguerreNodes);
-    std::cout << "Second order: " << second << ", corresponding to a clustering factor " << 1+(first + second)/analytical_free << " with m=" << mass << " eV.\n";
+    double second_vlasov = second_order_vlasov(mass, 3.0, rtols_2, atols_2, r_here, GaussLaguerreNodes);
+    std::cout << "Second order Vlasov: " << second_vlasov << ", corresponding to a clustering factor " << 1+(first + second_vlasov)/analytical_free << " with m=" << mass << " eV.\n";
+    
+    double second_kft = second_order_kft(mass, 3.0, rtols_2, atols_2, r_here, GaussLaguerreNodes);
+    std::cout << "Second order KFT: " << second_kft << ", corresponding to a clustering factor " << 1+(first + second_kft)/analytical_free << " with m=" << mass << " eV.\n";
     
     return 0;
 }

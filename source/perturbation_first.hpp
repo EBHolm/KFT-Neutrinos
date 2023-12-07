@@ -26,7 +26,7 @@ struct FirstOrderArguments { // Could make this a struct now
     
     double conc;
     double Rvir;
-    double z_factor;
+    double front_factor;
     double G0_Gz;
     double weight;
     double Rs;

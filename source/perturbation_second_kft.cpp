@@ -1,24 +1,24 @@
 //
-//  perturbation_second.cpp
+//  perturbation_second_kft.cpp
 //  KFT-Neutrinos
 //
 //  Created by Emil Brinch Holm on 03/03/2023.
 //
 
-#include "perturbation_second.hpp"
+#include "perturbation_second_kft.hpp"
 #include "cosmology.hpp"
 
-double second_order(double mass, double z_ini, double rtols[4], double atols[4], double r_here, int N_GaussLaguerre, double Tnu) {
-    SecondOrderArguments args = {{rtols[0], rtols[1], rtols[2], rtols[3]},
+double second_order_kft(double mass, double z_ini, double rtols[4], double atols[4], double r_here, int N_GaussLaguerre, double Tnu) {
+    SecondOrderArgumentsKFT args = {{rtols[0], rtols[1], rtols[2], rtols[3]},
                                  {atols[0], atols[1], atols[2], atols[3]},
                                  N_GaussLaguerre, mass, Tnu, r_here, r_here*r_here};
     args.G0 = Green(0, mass);
     args.z_ini = z_ini;
-    auto [I, err] = GaussKronrod<SecondOrderArguments>(integrand_z2, 0.0, z_ini, rtols[0], atols[0], args);
+    auto [I, err] = GaussKronrod<SecondOrderArgumentsKFT>(integrand_z2_kft, 0.0, z_ini, rtols[0], atols[0], args);
     return I;
 }
 
-double integrand_z2(double z2, SecondOrderArguments args) {
+double integrand_z2_kft(double z2, SecondOrderArgumentsKFT args) {
     double Hz2 = H(z2);
     double conc2 = conc(z2);
     args.Gz2 = Green(z2, args.mnu);
@@ -28,11 +28,11 @@ double integrand_z2(double z2, SecondOrderArguments args) {
     args.front_factor2 = 4.0*std::numbers::pi*_G_*rho0(z2, args.Rs2, conc2)*pow(args.Rs2, 3.)*pow(1 + z2, -2.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
     
     args.weight = args.mnu*args.G0_Gz2/Hz2/(1 + z2);
-    auto [I, err] = GaussKronrod<SecondOrderArguments>(integrand_z1, z2, args.z_ini, args.rtols[1], args.atols[1], args);
+    auto [I, err] = GaussKronrod<SecondOrderArgumentsKFT>(integrand_z1_kft, z2, args.z_ini, args.rtols[1], args.atols[1], args);
     return I;
 }
 
-double integrand_z1(double z1, SecondOrderArguments args) {
+double integrand_z1_kft(double z1, SecondOrderArgumentsKFT args) {
     double Hz1 = H(z1);
     double conc1 = conc(z1);
     double Gz1 = Green(z1, args.mnu);
@@ -45,11 +45,11 @@ double integrand_z1(double z1, SecondOrderArguments args) {
 
     args.weight *= args.mnu/Hz1/(1 + z1);
     // Future: Use pre-computed GL nodes+weights instead
-    double I = GaussLaguerre<SecondOrderArguments>(integrand_y, args.GaussLaguerreNodes, args);
+    double I = GaussLaguerre<SecondOrderArgumentsKFT>(integrand_y_kft, args.GaussLaguerreNodes, args);
     return I;
 }
 
-double integrand_y(double y, SecondOrderArguments args) {
+double integrand_y_kft(double y, SecondOrderArgumentsKFT args) {
     args.p = args.Tnu*y;
     args.gp1 = args.p*args.G0_Gz1;
     args.gp2 = args.p*args.G0_Gz2;
@@ -57,11 +57,11 @@ double integrand_y(double y, SecondOrderArguments args) {
     args.y_a2 = args.rr_here + pow(args.gp2, 2.);
     args.weight *= pow(args.Tnu, 3.)*pow(y, 2.)/(1.0 + exp(y));
     
-    auto [I, err] = GaussKronrod<SecondOrderArguments>(integrand_theta, 0.0, std::numbers::pi, args.rtols[2], args.atols[2], args);
+    auto [I, err] = GaussKronrod<SecondOrderArgumentsKFT>(integrand_theta_kft, 0.0, std::numbers::pi, args.rtols[2], args.atols[2], args);
     return I;
 }
 
-double integrand_theta(double theta, SecondOrderArguments args) {
+double integrand_theta_kft(double theta, SecondOrderArgumentsKFT args) {
     double costheta = cos(theta);
     double y1 = sqrt(args.y_a1 - 2.*args.gp1*args.r_here*costheta);
     double y2 = sqrt(args.y_a2 - 2.*args.gp2*args.r_here*costheta);
@@ -92,11 +92,11 @@ double integrand_theta(double theta, SecondOrderArguments args) {
     return 2.*std::numbers::pi*args.weight*(term1 - term2);
 }
 
-double integrand_z2z1(double z2, double z1, double mass, double z_ini, double rtols[4], double atols[4], double r_here, int N_GaussLaguerre, double Tnu) {
+double integrand_z2z1_kft(double z2, double z1, double mass, double z_ini, double rtols[4], double atols[4], double r_here, int N_GaussLaguerre, double Tnu) {
     /* Used for plotting the integrand in the (z2, z1)-plane */
     
     // General args
-    SecondOrderArguments args = {{rtols[0], rtols[1], rtols[2], rtols[3]},
+    SecondOrderArgumentsKFT args = {{rtols[0], rtols[1], rtols[2], rtols[3]},
                                  {atols[0], atols[1], atols[2], atols[3]},
                                  N_GaussLaguerre, mass, Tnu, r_here, r_here*r_here};
     args.G0 = Green(0, mass);
@@ -124,7 +124,7 @@ double integrand_z2z1(double z2, double z1, double mass, double z_ini, double rt
     args.front_factor1 = 4.0*std::numbers::pi*_G_*rho0(z1, args.Rs1, conc1)*pow(args.Rs1, 3.)*pow(1 + z1, -2.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
     args.weight *= args.mnu/Hz1/(1 + z1);
     
-    double I = GaussLaguerre<SecondOrderArguments>(integrand_y, args.GaussLaguerreNodes, args);
+    double I = GaussLaguerre<SecondOrderArgumentsKFT>(integrand_y_kft, args.GaussLaguerreNodes, args);
     return I;
 }
 

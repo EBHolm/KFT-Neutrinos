@@ -23,8 +23,8 @@ double integrand_z(double z, FirstOrderArguments args) {
     args.G0_Gz = Green(0, args.mnu) - Green(z, args.mnu);
     args.Rs = Rs(z, con, Hz);
     args.Rvir = args.Rs*args.conc;
-    args.z_factor = 4.0*std::numbers::pi*_G_*rho0(z, args.Rs, con)*pow(args.Rs, 3.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
-    args.weight = args.mnu*args.G0_Gz/Hz*pow(1 + z, -3.)*args.z_factor;
+    args.front_factor = 4.0*std::numbers::pi*_G_*rho0(z, args.Rs, con)*pow(args.Rs, 3.)*pow(1 + z, -2.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
+    args.weight = args.mnu*args.G0_Gz/Hz/(1 + z);
     double I = GaussLaguerre<FirstOrderArguments>(integrand_y, args.GaussLaguerreNodes, args);
     return I;
 };
@@ -42,7 +42,7 @@ double integrand_y(double y, FirstOrderArguments args) {
 double integrand_theta(double theta, FirstOrderArguments args) {
     args.r = sqrt(args.r_a - 2.*args.gp*args.r_here*cos(theta));
     args.weight *= sin(theta);
-    return 2.*std::numbers::pi*args.weight*LapNFWKepler(args.r, args.Rs, args.Rvir);
+    return 2.*std::numbers::pi*args.weight*args.front_factor*LapNFWKepler(args.r, args.Rs, args.Rvir);
 };
 
 double integrand_y_complete(double y, double mass, double z_ini, double rtols[2], double atols[2], double r_here, int N_GaussLaguerre, double Tnu) {
@@ -64,8 +64,8 @@ double integrand_z_complete(double z, FirstOrderArguments args) {
     args.G0_Gz = Green(0, args.mnu) - Green(z, args.mnu);
     args.Rs = Rs(z, con, Hz);
     args.Rvir = args.Rs*args.conc;
-    args.z_factor = 4.0*std::numbers::pi*_G_*rho0(z, args.Rs, con)*pow(args.Rs, 3.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
-    args.weight *= args.mnu*args.G0_Gz/(1 + z)/Hz*args.z_factor;
+    args.front_factor = 4.0*std::numbers::pi*_G_*rho0(z, args.Rs, con)*pow(args.Rs, 3.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
+    args.weight *= args.mnu*args.G0_Gz/(1 + z)/Hz*args.front_factor;
     args.gp = args.p*args.G0_Gz;
     args.r_a = args.rr_here + pow(args.gp, 2.);
     auto [I, err] = GaussKronrod<FirstOrderArguments>(integrand_theta, 0.0, std::numbers::pi, args.rtols[1], args.atols[1], args);

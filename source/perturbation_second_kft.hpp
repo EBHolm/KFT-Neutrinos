@@ -1,17 +1,17 @@
 //
-//  perturbation_second.hpp
+//  perturbation_second_kft.hpp
 //  KFT-Neutrinos
 //
 //  Created by Emil Brinch Holm on 03/03/2023.
 //
 
-#ifndef perturbation_second_hpp
-#define perturbation_second_hpp
+#ifndef perturbation_second_kft_hpp
+#define perturbation_second_kft_hpp
 
 #include <numbers>
 #include "quadrature.hpp"
 
-struct SecondOrderArguments {
+struct SecondOrderArgumentsKFT {
     double rtols[4];
     double atols[4];
     int GaussLaguerreNodes;
@@ -50,16 +50,16 @@ struct SecondOrderArguments {
 };
 
 
-double second_order(double mass, double z_ini, double rtols[4], double atols[4], double r_here, int N_GaussLaguerre, double Tnu = 0.0001676375864435959);
+double second_order_kft(double mass, double z_ini, double rtols[4], double atols[4], double r_here, int N_GaussLaguerre, double Tnu = 0.0001676375864435959);
 
-double integrand_z2(double z2, SecondOrderArguments args);
+double integrand_z2_kft(double z2, SecondOrderArgumentsKFT args);
 
-double integrand_z1(double z1, SecondOrderArguments args);
+double integrand_z1_kft(double z1, SecondOrderArgumentsKFT args);
 
-double integrand_y(double y, SecondOrderArguments args);
+double integrand_y_kft(double y, SecondOrderArgumentsKFT args);
 
-double integrand_theta(double theta, SecondOrderArguments args);
+double integrand_theta_kft(double theta, SecondOrderArgumentsKFT args);
 
-double integrand_z2z1(double z2, double z1, double mass, double z_ini, double rtols[4], double atols[4], double r_here, int N_GaussLaguerre, double Tnu = 0.0001676375864435959);
+double integrand_z2z1_kft(double z2, double z1, double mass, double z_ini, double rtols[4], double atols[4], double r_here, int N_GaussLaguerre, double Tnu = 0.0001676375864435959);
 
-#endif /* perturbation_second_hpp */
+#endif /* perturbation_second_kft_hpp */
