@@ -27,7 +27,7 @@ double integrand_z2_vlasov(double z2, SecondOrderArgumentsVlasov args) {
     args.Rvir2 = args.Rs2*conc2;
     args.front_factor2 = 4.0*std::numbers::pi*_G_*rho0(z2, args.Rs2, conc2)*pow(args.Rs2, 3.)*pow(1 + z2, -2.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
     
-    args.weight = args.mnu*args.G0_Gz2/Hz2/(1 + z2);
+    args.weight = args.mnu*args.G0_Gz2/Hz2/pow(1 + z2, 3.);
     auto [I, err] = GaussKronrod<SecondOrderArgumentsVlasov>(integrand_z1_vlasov, z2, args.z_ini, args.rtols[1], args.atols[1], args);
     return I;
 }
@@ -43,7 +43,7 @@ double integrand_z1_vlasov(double z1, SecondOrderArgumentsVlasov args) {
     args.Rvir1 = args.Rs1*conc1;
     args.front_factor1 = 4.0*std::numbers::pi*_G_*rho0(z1, args.Rs1, conc1)*pow(args.Rs1, 3.)*pow(1 + z1, -2.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
 
-    args.weight *= args.mnu*args.G0_Gz1/Hz1/(1 + z1);
+    args.weight *= args.mnu*args.G0_Gz1/Hz1/pow(1 + z1, 3.);
     // Future: Use pre-computed GL nodes+weights instead
     double I = GaussLaguerre<SecondOrderArgumentsVlasov>(integrand_y_vlasov, args.GaussLaguerreNodes, args);
     return I;
@@ -72,9 +72,9 @@ double integrand_theta_vlasov(double theta, SecondOrderArgumentsVlasov args) {
     double term1 = 1./(y1*y2*pow((y1 + args.Rs1)*(y2 + args.Rs2), 2.));
     
     // computation of term 2, the (3,1) term
-    double term2 = -y1_dot_y2*(3*y1 + args.Rs1)/pow(y2*y1*(y1 + args.Rs1), 3.)*(log((y2 + args.Rs2)/args.Rs2) - y2/(y2 + args.Rs2));
+    double term2 = y1_dot_y2*(3*y1 + args.Rs1)/pow(y2*y1*(y1 + args.Rs1), 3.)*(log((y2 + args.Rs2)/args.Rs2) - y2/(y2 + args.Rs2));
     
-    return 2.*std::numbers::pi*args.weight*args.front_factor1*args.front_factor2*(term1 - term2);
+    return 2.*std::numbers::pi*args.weight*args.front_factor1*args.front_factor2*(term1 + term2);
 }
 
 double integrand_z2z1_vlasov(double z2, double z1, double mass, double z_ini, double rtols[4], double atols[4], double r_here, int N_GaussLaguerre, double Tnu) {

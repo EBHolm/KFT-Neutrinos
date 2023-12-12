@@ -42,7 +42,8 @@ double integrand_y(double y, FirstOrderArguments args) {
 double integrand_theta(double theta, FirstOrderArguments args) {
     args.r = sqrt(args.r_a - 2.*args.gp*args.r_here*cos(theta));
     args.weight *= sin(theta);
-    return 2.*std::numbers::pi*args.weight*args.front_factor*LapNFWKepler(args.r, args.Rs, args.Rvir);
+    // return 2.*std::numbers::pi*args.weight*args.front_factor*LapNFWKepler(args.r, args.Rs, args.Rvir);
+    return 2.*std::numbers::pi*args.weight*args.front_factor*LapNFW(args.r, args.Rs);
 };
 
 double integrand_y_complete(double y, double mass, double z_ini, double rtols[2], double atols[2], double r_here, int N_GaussLaguerre, double Tnu) {

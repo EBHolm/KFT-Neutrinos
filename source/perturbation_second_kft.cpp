@@ -27,7 +27,8 @@ double integrand_z2_kft(double z2, SecondOrderArgumentsKFT args) {
     args.Rvir2 = args.Rs2*conc2;
     args.front_factor2 = 4.0*std::numbers::pi*_G_*rho0(z2, args.Rs2, conc2)*pow(args.Rs2, 3.)*pow(1 + z2, -2.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
     
-    args.weight = args.mnu*args.G0_Gz2/Hz2/(1 + z2);
+    // Two powers of 1/(1 + z) come from the potential, one from the integrand
+    args.weight = args.mnu/Hz2/pow(1 + z2, 3.);
     auto [I, err] = GaussKronrod<SecondOrderArgumentsKFT>(integrand_z1_kft, z2, args.z_ini, args.rtols[1], args.atols[1], args);
     return I;
 }
@@ -43,7 +44,7 @@ double integrand_z1_kft(double z1, SecondOrderArgumentsKFT args) {
     args.Rvir1 = args.Rs1*conc1;
     args.front_factor1 = 4.0*std::numbers::pi*_G_*rho0(z1, args.Rs1, conc1)*pow(args.Rs1, 3.)*pow(1 + z1, -2.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
 
-    args.weight *= args.mnu/Hz1/(1 + z1);
+    args.weight *= args.mnu/Hz1/pow(1 + z1, 3.);
     // Future: Use pre-computed GL nodes+weights instead
     double I = GaussLaguerre<SecondOrderArgumentsKFT>(integrand_y_kft, args.GaussLaguerreNodes, args);
     return I;
@@ -67,29 +68,25 @@ double integrand_theta_kft(double theta, SecondOrderArgumentsKFT args) {
     double y2 = sqrt(args.y_a2 - 2.*args.gp2*args.r_here*costheta);
     double y1_dot_y2 = args.rr_here + args.gp1*args.gp2 - costheta*args.r_here*(args.gp1 + args.gp2);
     args.weight *= sin(theta);
-    double term1 = 0.;
-    double term2 = 0.;
     
-    // computation of term 1, the (2,2) Laplacian term
-    if ((y1 <= args.Rvir1) && (y2 <= args.Rvir2)) {
-        // both within Rvir
-        // term1 vanishes except when both are within
-        term1 = args.G0_Gz1*args.front_factor1*args.front_factor2/(y1*y2*pow((y1 + args.Rs1)*(y2 + args.Rs2), 2.));
-    }
+    // Only computing NFW part for now
+    // This is (A.19) in the notes (as of dec. 12)
+    // But note the replacement z1 <-> z2 between here and (A.19)
     
-    // computation of term 2, the (3,1) term
-    if (y2 <= args.Rvir2) {
-        // term 2 always vanishes if y2 is outside
-        if (y1 <= args.Rvir1) {
-            // both within Rvir
-            term2 = -args.Gz2_Gz1*args.front_factor1*args.front_factor2*y1_dot_y2*(3*y2 + args.Rs2)/pow(y1*y2*(y2 + args.Rs2), 3.)*(log((y1 + args.Rs1)/args.Rs1) - y1/(y1 + args.Rs1));
-        }
-        else {
-            // y2 inside, y1 outside; use Kepler for y1
-            term2 = -args.Gz2_Gz1*args.front_factor2*y1_dot_y2*(3*y2 + args.Rs2)/pow(y1*y2*(y2 + args.Rs2), 3.)*_G_*_Mvir_*pow(1 + args.z1, 1.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
-        }
-    }
-    return 2.*std::numbers::pi*args.weight*(term1 - term2);
+    // computation of term 1, the (3,1) term
+    double term1 = args.G0_Gz1*args.G0_Gz2*args.front_factor1*args.front_factor2*y1_dot_y2*(3*y1 + args.Rs1)/pow(y2*y1*(y1 + args.Rs1), 3.)*(log((y2 + args.Rs2)/args.Rs2) - y2/(y2 + args.Rs2));
+
+    // computation of term 2, the (1,3) term
+    double term2 = args.G0_Gz2*args.G0_Gz2*args.front_factor1*args.front_factor2*y1_dot_y2*(3*y2 + args.Rs2)/pow(y1*y2*(y2 + args.Rs2), 3.)*(log((y1 + args.Rs1)/args.Rs1) - y1/(y1 + args.Rs1));
+    
+    // computation of term 3, the (2,2) Laplacian term
+    double term3 = args.G0_Gz1*args.G0_Gz2*args.front_factor1*args.front_factor2/(y1*y2*pow((y1 + args.Rs1)*(y2 + args.Rs2), 2.));
+    
+    // computation of term 4, the (2,2) cross-contracted term
+    // NOTE: Same as the product of the Laplacians!
+    double term4 = args.G0_Gz2*args.G0_Gz2*args.front_factor1*args.front_factor2/(y1*y2*pow((y1 + args.Rs1)*(y2 + args.Rs2), 2.));
+    
+    return 2.*std::numbers::pi*args.weight*(term1 + term2 + term3 + term4);
 }
 
 double integrand_z2z1_kft(double z2, double z1, double mass, double z_ini, double rtols[4], double atols[4], double r_here, int N_GaussLaguerre, double Tnu) {
