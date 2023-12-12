@@ -83,8 +83,19 @@ double integrand_theta_kft(double theta, SecondOrderArgumentsKFT args) {
     double term3 = args.G0_Gz1*args.G0_Gz2*args.front_factor1*args.front_factor2/(y1*y2*pow((y1 + args.Rs1)*(y2 + args.Rs2), 2.));
     
     // computation of term 4, the (2,2) cross-contracted term
-    // NOTE: Same as the product of the Laplacians!
-    double term4 = args.G0_Gz2*args.G0_Gz2*args.front_factor1*args.front_factor2/(y1*y2*pow((y1 + args.Rs1)*(y2 + args.Rs2), 2.));
+    double Log1 = log(1 + y1/args.Rs1);
+    double Log2 = log(1 + y2/args.Rs2);
+    double cross = y1*args.Rs1*(2*Log1 - 1)*( pow(y1, 2.)*pow(y2, 4.)*(3*Log2 - 2) + 3*y2*y2*y1_dot_y2*(3*Log2 - 4) +                                               // first line done
+                                3*y2*args.Rs2*(2*Log2 - 1)*(pow(y1*y2, 2.) + 3*y1_dot_y2) + 3*Log2*pow(args.Rs2, 2.)*(pow(y1*y2, 2.) + 3*y1_dot_y2)) +              // second line done
+                   pow(args.Rs1, 2.)*Log1*( pow(y1, 2.)*pow(y2, 4.)*(3*Log2 - 2) + 3*y2*y2*y1_dot_y2*(3*Log2 - 4) +                                                 // third line
+                                            3*y2*args.Rs2*(2*Log2 - 1)*(pow(y1*y2, 2.) + 3*y1_dot_y2) + 3*Log2*pow(args.Rs2, 2.)*(pow(y1*y2, 2.) + 3*y1_dot_y2)) +  // fourth line, exactly same as second line
+                   y1*y1*( pow(y1, 2.)*pow(y2, 4.)*((1 - 2*Log2) + Log1*(3*Log2 - 2)) +                                                                             // fifth line
+                           pow(y2, 2.)*y1_dot_y2*(3*Log1 - 4)*(4*Log2 - 4) +                                                                                        // sixth line
+                           y2*args.Rs2*(2*Log2 - 1)*(pow(y1*y2, 2.)*(3*Log1 - 2) + 3*y1_dot_y2*(3*Log1 - 4)) +                                                      // seventh line
+                           pow(args.Rs2, 2.)*Log2*(pow(y1*y2, 2.)*(3*Log1 - 2)  + 3*y1_dot_y2*(3*Log1 - 4)));                                                       // eigth line
+    double denom = pow(y1*y2, 5.)*pow((y1 + args.Rs1)*(y2 + args.Rs2), 2.);
+
+    double term4 = args.G0_Gz2*args.G0_Gz2*args.front_factor1*args.front_factor2*cross/denom;
     
     return 2.*std::numbers::pi*args.weight*(term1 + term2 + term3 + term4);
 }
