@@ -20,6 +20,7 @@ struct SecondOrderArgumentsKFT {
     double Tnu;
     double r_here;
     double rr_here;
+    int terms_flag;
     double G0;
     double z_ini;
     
@@ -32,7 +33,6 @@ struct SecondOrderArgumentsKFT {
     double front_factor2;
     
     double G0_Gz1;
-    double Gz2_Gz1;
     double Rs1;
     double Rvir1;
     double z1;
@@ -50,7 +50,7 @@ struct SecondOrderArgumentsKFT {
 };
 
 
-double second_order_kft(double mass, double z_ini, double rtols[4], double atols[4], double r_here, int N_GaussLaguerre, double Tnu = 0.0001676375864435959);
+double second_order_kft(double mass, double z_ini, double rtols[4], double atols[4], double r_here, int N_GaussLaguerre, int terms_flag = 0, double Tnu = 0.0001676375864435959);
 
 double integrand_z2_kft(double z2, SecondOrderArgumentsKFT args);
 
