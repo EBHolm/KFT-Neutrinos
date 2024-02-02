@@ -12,10 +12,10 @@ double H(double z) {
     return _H0_*sqrt(_OmegaM_*pow(1. + z, 3.) + _OmegaL_)/_speedoflight_;
 }
 
-double conc(double z) {
+double conc(double z, double Mvir_over_Msun) {
     double a = 0.537 + (1.025 - 0.537)*exp(-0.718*pow(z, 1.08));
     double b = -0.097 + 0.024*z;
-    return pow(10., a + b*log10(_Mvir_over_Msun_/(1e+12/_h_)))/0.613;
+    return pow(10., a + b*log10(Mvir_over_Msun/(1e+12/_h_)))/0.613;
 }
 
 double Omega_m(double z) {
@@ -26,14 +26,14 @@ double rho_crit(double z) {
     return 3.0*pow(H(z), 2.)/(8.0*std::numbers::pi*_G_*pow(_speedoflight_, -2.)*_m_to_kpc_);
 }
 
-double Rs(double z, double conc, double H) {
+double Rs(double z, double conc, double H, double Mvir_over_Msun) {
     double Delta_vir = 18.*pow(std::numbers::pi, 2.) + 82.*(Omega_m(z) - 1.) - 39.*pow(Omega_m(z) - 1., 2.);
-    double Rvir = pow(3.0*_Mvir_/(4.*std::numbers::pi*Delta_vir*rho_crit(z)), 1.0/3.0);
+    double Rvir = pow(3.0*Mvir_over_Msun*_Msun_/(4.*std::numbers::pi*Delta_vir*rho_crit(z)), 1.0/3.0);
     return Rvir/conc;
 }
 
-double rho0(double z, double Rs, double conc) {
-    return _Mvir_/(4.0*std::numbers::pi*pow(Rs, 3.)*pow(1. + z, -3.)*(log(1. + conc) - conc/(1 + conc)));
+double rho0(double z, double Rs, double conc, double Mvir_over_Msun) {
+    return Mvir_over_Msun*_Msun_/(4.0*std::numbers::pi*pow(Rs, 3.)*pow(1. + z, -3.)*(log(1. + conc) - conc/(1 + conc)));
 }
 
 double Green(double z, double mass) {

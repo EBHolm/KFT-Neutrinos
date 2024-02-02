@@ -25,16 +25,16 @@
 #define _OmegaM_ 0.3111
 #define _Msun_ 1.98847e+30 // Solar mass in kg
 // Mvir = 3.76e12*1.988e30 // in units of kg
-#define _Mvir_ 4.0365941e+42
-#define _Mvir_over_Msun_ 2.03e+12
+// #define _Mvir_ 4.0365941e+42
+// #define _Mvir_over_Msun_ 2.03e+12
 #define _sqrt2_ 1.41421356237
 
 double H(double z);
-double conc(double z);
+double conc(double z, double Mvir_over_Msun);
 double Omega_m(double z);
 double rho_crit(double z);
-double Rs(double z, double conc, double H);
-double rho0(double z, double Rs, double conc);
+double Rs(double z, double conc, double H, double Mvir_over_Msun);
+double rho0(double z, double Rs, double conc, double Mvir_over_Msun);
 
 
 double Green(double z, double mass);

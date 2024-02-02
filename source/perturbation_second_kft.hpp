@@ -20,6 +20,7 @@ struct SecondOrderArgumentsKFT {
     double Tnu;
     double r_here;
     double rr_here;
+    double Mvir_over_Msun;
     int terms_flag;
     double G0;
     double z_ini;
@@ -50,7 +51,7 @@ struct SecondOrderArgumentsKFT {
 };
 
 
-double second_order_kft(double mass, double z_ini, double rtols[4], double atols[4], double r_here, int N_GaussLaguerre, int terms_flag = 0, double Tnu = 0.0001676375864435959);
+double second_order_kft(double mass, double z_ini, double rtols[4], double atols[4], double r_here, double Mvir_over_Msun, int N_GaussLaguerre, int terms_flag = 0, double Tnu = 0.0001676375864435959);
 
 double integrand_z2_kft(double z2, SecondOrderArgumentsKFT args);
 
@@ -60,6 +61,6 @@ double integrand_y_kft(double y, SecondOrderArgumentsKFT args);
 
 double integrand_theta_kft(double theta, SecondOrderArgumentsKFT args);
 
-double integrand_z2z1_kft(double z2, double z1, double mass, double z_ini, double rtols[4], double atols[4], double r_here, int N_GaussLaguerre, double Tnu = 0.0001676375864435959);
+double integrand_z2z1_kft(double z2, double z1, double mass, double z_ini, double rtols[4], double atols[4], double r_here, double Mvir_over_Msun, int N_GaussLaguerre, double Tnu = 0.0001676375864435959);
 
 #endif /* perturbation_second_kft_hpp */

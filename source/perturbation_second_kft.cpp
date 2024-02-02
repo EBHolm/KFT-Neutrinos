@@ -8,10 +8,10 @@
 #include "perturbation_second_kft.hpp"
 #include "cosmology.hpp"
 
-double second_order_kft(double mass, double z_ini, double rtols[4], double atols[4], double r_here, int N_GaussLaguerre, int terms_flag, double Tnu) {
+double second_order_kft(double mass, double z_ini, double rtols[4], double atols[4], double r_here, double Mvir_over_Msun, int N_GaussLaguerre, int terms_flag, double Tnu) {
     SecondOrderArgumentsKFT args = {{rtols[0], rtols[1], rtols[2], rtols[3]},
                                  {atols[0], atols[1], atols[2], atols[3]},
-                                 N_GaussLaguerre, mass, Tnu, r_here, r_here*r_here, terms_flag};
+                                 N_GaussLaguerre, mass, Tnu, r_here, r_here*r_here, Mvir_over_Msun, terms_flag};
     args.G0 = Green(0, mass);
     args.z_ini = z_ini;
     auto [I, err] = GaussKronrod<SecondOrderArgumentsKFT>(integrand_z2_kft, 0.0, z_ini, rtols[0], atols[0], args);
@@ -20,12 +20,12 @@ double second_order_kft(double mass, double z_ini, double rtols[4], double atols
 
 double integrand_z2_kft(double z2, SecondOrderArgumentsKFT args) {
     double Hz2 = H(z2);
-    double conc2 = conc(z2);
+    double conc2 = conc(z2, args.Mvir_over_Msun);
     args.Gz2 = Green(z2, args.mnu);
     args.G0_Gz2 = args.G0 - args.Gz2;
-    args.Rs2 = Rs(z2, conc2, Hz2);
+    args.Rs2 = Rs(z2, conc2, Hz2, args.Mvir_over_Msun);
     args.Rvir2 = args.Rs2*conc2;
-    args.front_factor2 = 4.0*std::numbers::pi*_G_*rho0(z2, args.Rs2, conc2)*pow(args.Rs2, 3.)*pow(1 + z2, -2.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
+    args.front_factor2 = 4.0*std::numbers::pi*_G_*rho0(z2, args.Rs2, conc2, args.Mvir_over_Msun)*pow(args.Rs2, 3.)*pow(1 + z2, -2.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
     args.weight = args.mnu*args.G0_Gz2/Hz2/(1 + z2);
     auto [I, err] = GaussKronrod<SecondOrderArgumentsKFT>(integrand_z1_kft, z2, args.z_ini, args.rtols[1], args.atols[1], args);
     return I;
@@ -33,13 +33,13 @@ double integrand_z2_kft(double z2, SecondOrderArgumentsKFT args) {
 
 double integrand_z1_kft(double z1, SecondOrderArgumentsKFT args) {
     double Hz1 = H(z1);
-    double conc1 = conc(z1);
+    double conc1 = conc(z1, args.Mvir_over_Msun);
     double Gz1 = Green(z1, args.mnu);
     args.z1 = z1;
     args.G0_Gz1 = args.G0 - Gz1;
-    args.Rs1 = Rs(z1, conc1, Hz1);
+    args.Rs1 = Rs(z1, conc1, Hz1, args.Mvir_over_Msun);
     args.Rvir1 = args.Rs1*conc1;
-    args.front_factor1 = 4.0*std::numbers::pi*_G_*rho0(z1, args.Rs1, conc1)*pow(args.Rs1, 3.)*pow(1 + z1, -2.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
+    args.front_factor1 = 4.0*std::numbers::pi*_G_*rho0(z1, args.Rs1, conc1, args.Mvir_over_Msun)*pow(args.Rs1, 3.)*pow(1 + z1, -2.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
 
     args.weight *= args.mnu/Hz1/(1 + z1);
     // Future: Use pre-computed GL nodes+weights instead
@@ -141,23 +141,23 @@ double integrand_z2z1_kft(double z2, double z1, double mass, double z_ini, doubl
     
     // z2 args
     double Hz2 = H(z2);
-    double conc2 = conc(z2);
+    double conc2 = conc(z2, args.Mvir_over_Msun);
     args.Gz2 = Green(z2, args.mnu);
     args.G0_Gz2 = args.G0 - args.Gz2;
-    args.Rs2 = Rs(z2, conc2, Hz2);
+    args.Rs2 = Rs(z2, conc2, Hz2, args.Mvir_over_Msun);
     args.Rvir2 = args.Rs2*conc2;
-    args.front_factor2 = 4.0*std::numbers::pi*_G_*rho0(z2, args.Rs2, conc2)*pow(args.Rs2, 3.)*pow(1 + z2, -2.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
+    args.front_factor2 = 4.0*std::numbers::pi*_G_*rho0(z2, args.Rs2, conc2, args.Mvir_over_Msun)*pow(args.Rs2, 3.)*pow(1 + z2, -2.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
     args.weight = args.mnu*args.G0_Gz2/Hz2/(1 + z2);
     
     // z1 args
     double Hz1 = H(z1);
-    double conc1 = conc(z1);
+    double conc1 = conc(z1, args.Mvir_over_Msun);
     double Gz1 = Green(z1, args.mnu);
     args.z1 = z1;
     args.G0_Gz1 = args.G0 - Gz1;
-    args.Rs1 = Rs(z1, conc1, Hz1);
+    args.Rs1 = Rs(z1, conc1, Hz1, args.Mvir_over_Msun);
     args.Rvir1 = args.Rs1*conc1;
-    args.front_factor1 = 4.0*std::numbers::pi*_G_*rho0(z1, args.Rs1, conc1)*pow(args.Rs1, 3.)*pow(1 + z1, -2.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
+    args.front_factor1 = 4.0*std::numbers::pi*_G_*rho0(z1, args.Rs1, conc1, args.Mvir_over_Msun)*pow(args.Rs1, 3.)*pow(1 + z1, -2.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
     args.weight *= args.mnu/Hz1/(1 + z1);
     
     double I = GaussLaguerre<SecondOrderArgumentsKFT>(integrand_y_kft, args.GaussLaguerreNodes, args);
