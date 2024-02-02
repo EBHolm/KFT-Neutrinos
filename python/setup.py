@@ -9,7 +9,7 @@ setup(
     url='',
     ext_modules = cythonize(
         Extension('kftneutrinos',
-            sources=['../source/perturbation_first.cpp', '../source/perturbation_second_kft.cpp', '../source/perturbation_second_vlasov.cpp',
+            sources=['../source/perturbation_first.cpp', '../source/perturbation_second_kft.cpp',
                      '../source/quadrature.cpp', '../source/cosmology.cpp', 'kftneutrinos.pyx'],
             include_dirs=['../source/'],
             language='c++',

@@ -10,7 +10,6 @@
 #include <string>
 #include "perturbation_first.hpp"
 #include "perturbation_second_kft.hpp"
-#include "perturbation_second_vlasov.hpp"
 
 int main(int argc, const char * argv[]) {
     /*
@@ -37,10 +36,6 @@ int main(int argc, const char * argv[]) {
     /* Should give 1.2155 at m=0.1 eV */
     /*         and 1.0018 at m=0.01 eV */
     std::cout << "First order: " << first << ", corresponding to a clustering factor " << 1+first/analytical_free << " with m=" << mass << " eV.\n";
-    
-    
-    double second_vlasov = second_order_vlasov(mass, 3.0, rtols_2, atols_2, r_here, GaussLaguerreNodes);
-    std::cout << "Second order Vlasov: " << second_vlasov << ", corresponding to a clustering factor " << 1+(first + second_vlasov)/analytical_free << " with m=" << mass << " eV.\n";
     
     double second_kft = second_order_kft(mass, 3.0, rtols_2, atols_2, r_here, GaussLaguerreNodes);
     std::cout << "Second order KFT: " << second_kft << ", corresponding to a clustering factor " << 1+(first + second_kft)/analytical_free << " with m=" << mass << " eV.\n";
