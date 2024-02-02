@@ -26,8 +26,6 @@ double integrand_z2_kft(double z2, SecondOrderArgumentsKFT args) {
     args.Rs2 = Rs(z2, conc2, Hz2);
     args.Rvir2 = args.Rs2*conc2;
     args.front_factor2 = 4.0*std::numbers::pi*_G_*rho0(z2, args.Rs2, conc2)*pow(args.Rs2, 3.)*pow(1 + z2, -2.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
-    
-    // Two powers of 1/(1 + z) come from the potential, one from the integrand
     args.weight = args.mnu*args.G0_Gz2/Hz2/(1 + z2);
     auto [I, err] = GaussKronrod<SecondOrderArgumentsKFT>(integrand_z1_kft, z2, args.z_ini, args.rtols[1], args.atols[1], args);
     return I;
@@ -91,14 +89,14 @@ double integrand_theta_kft(double theta, SecondOrderArgumentsKFT args) {
         // computation of term 4, the (2,2) cross-contracted term
         double Log1 = log(1 + y1/args.Rs1);
         double Log2 = log(1 + y2/args.Rs2);
-        double cross = y1*args.Rs1*(2*Log1 - 1)*( pow(y1, 2.)*pow(y2, 4.)*(3*Log2 - 2) + 3*y2*y2*y1_dot_y2*(3*Log2 - 4) +                                               // first line done
-                                    3*y2*args.Rs2*(2*Log2 - 1)*(pow(y1*y2, 2.) + 3*y1_dot_y2) + 3*Log2*pow(args.Rs2, 2.)*(pow(y1*y2, 2.) + 3*y1_dot_y2)) +              // second line done
-                       pow(args.Rs1, 2.)*Log1*( pow(y1, 2.)*pow(y2, 4.)*(3*Log2 - 2) + 3*y2*y2*y1_dot_y2*(3*Log2 - 4) +                                                 // third line
-                                                3*y2*args.Rs2*(2*Log2 - 1)*(pow(y1*y2, 2.) + 3*y1_dot_y2) + 3*Log2*pow(args.Rs2, 2.)*(pow(y1*y2, 2.) + 3*y1_dot_y2)) +  // fourth line, exactly same as second line
+        double cross = y1*args.Rs1*(2*Log1 - 1)*( pow(y1, 2.)*pow(y2, 4.)*(3*Log2 - 2) + 3*y2*y2*y1_dot_y2*y1_dot_y2*(3*Log2 - 4) +                                               // first line done
+                                    3*y2*args.Rs2*(2*Log2 - 1)*(pow(y1*y2, 2.) + 3*y1_dot_y2*y1_dot_y2) + 3*Log2*pow(args.Rs2, 2.)*(pow(y1*y2, 2.) + 3*y1_dot_y2*y1_dot_y2)) +              // second line done
+                       pow(args.Rs1, 2.)*Log1*( pow(y1, 2.)*pow(y2, 4.)*(3*Log2 - 2) + 3*y2*y2*y1_dot_y2*y1_dot_y2*(3*Log2 - 4) +                                                 // third line
+                                                3*y2*args.Rs2*(2*Log2 - 1)*(pow(y1*y2, 2.) + 3*y1_dot_y2*y1_dot_y2) + 3*Log2*pow(args.Rs2, 2.)*(pow(y1*y2, 2.) + 3*y1_dot_y2*y1_dot_y2)) +  // fourth line, exactly same as second line
                        y1*y1*( pow(y1, 2.)*pow(y2, 4.)*((1 - 2*Log2) + Log1*(3*Log2 - 2)) +                                                                             // fifth line
-                               pow(y2, 2.)*y1_dot_y2*(3*Log1 - 4)*(4*Log2 - 4) +                                                                                        // sixth line
-                               y2*args.Rs2*(2*Log2 - 1)*(pow(y1*y2, 2.)*(3*Log1 - 2) + 3*y1_dot_y2*(3*Log1 - 4)) +                                                      // seventh line
-                               pow(args.Rs2, 2.)*Log2*(pow(y1*y2, 2.)*(3*Log1 - 2)  + 3*y1_dot_y2*(3*Log1 - 4)));                                                       // eigth line
+                               pow(y2, 2.)*y1_dot_y2*y1_dot_y2*(3*Log1 - 4)*(3*Log2 - 4) +                                                                                        // sixth line
+                               y2*args.Rs2*(2*Log2 - 1)*(pow(y1*y2, 2.)*(3*Log1 - 2) + 3*y1_dot_y2*y1_dot_y2*(3*Log1 - 4)) +                                                      // seventh line
+                               pow(args.Rs2, 2.)*Log2*(pow(y1*y2, 2.)*(3*Log1 - 2)  + 3*y1_dot_y2*y1_dot_y2*(3*Log1 - 4)));                                                       // eigth line
         double denom = pow(y1*y2, 5.)*pow((y1 + args.Rs1)*(y2 + args.Rs2), 2.);
 
         term4 = args.G0_Gz2*args.front_factor1*args.front_factor2*cross/denom;
