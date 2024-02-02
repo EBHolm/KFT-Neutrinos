@@ -46,11 +46,11 @@ double integrand_theta(double theta, FirstOrderArguments args) {
     return 2.*std::numbers::pi*args.weight*args.front_factor*LapNFW(args.r, args.Rs);
 };
 
-double integrand_y_complete(double y, double mass, double z_ini, double rtols[2], double atols[2], double r_here, int N_GaussLaguerre, double Tnu) {
+double integrand_y_complete(double y, double mass, double z_ini, double rtols[2], double atols[2], double r_here, double Mvir_over_Msun, int N_GaussLaguerre, double Tnu) {
     /* Returns d delta n/dp, i.e. the integrand of the dy integral if that is the outermost integral */
     FirstOrderArguments args = {{rtols[0], rtols[1]},
                                 {atols[0], atols[1]},
-                                 N_GaussLaguerre, mass, Tnu, r_here, r_here*r_here};
+                                 N_GaussLaguerre, mass, Tnu, r_here, r_here*r_here, Mvir_over_Msun};
     args.p = args.Tnu*y;
     args.weight = pow(args.Tnu, 3.)*pow(y, 2.)/(1.0 + exp(y));
     

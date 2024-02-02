@@ -129,13 +129,13 @@ double integrand_theta_kft(double theta, SecondOrderArgumentsKFT args) {
     return 2.*std::numbers::pi*args.weight*(term1 + term2 + term3 + term4);
 }
 
-double integrand_z2z1_kft(double z2, double z1, double mass, double z_ini, double rtols[4], double atols[4], double r_here, int N_GaussLaguerre, double Tnu) {
+double integrand_z2z1_kft(double z2, double z1, double mass, double z_ini, double rtols[4], double atols[4], double r_here, double Mvir_over_Msun, int N_GaussLaguerre, double Tnu) {
     /* Used for plotting the integrand in the (z2, z1)-plane */
     
     // General args
     SecondOrderArgumentsKFT args = {{rtols[0], rtols[1], rtols[2], rtols[3]},
                                  {atols[0], atols[1], atols[2], atols[3]},
-                                 N_GaussLaguerre, mass, Tnu, r_here, r_here*r_here};
+                                 N_GaussLaguerre, mass, Tnu, r_here, r_here*r_here, Mvir_over_Msun};
     args.G0 = Green(0, mass);
     args.z_ini = z_ini;
     
