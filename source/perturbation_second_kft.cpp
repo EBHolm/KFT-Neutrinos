@@ -82,10 +82,10 @@ double integrand_theta_kft(double theta, SecondOrderArgumentsKFT args) {
     if (args.terms_flag == 0) {
         // Compute all terms
         // computation of term 1, the (3,1) term
-        term1 = args.G0_Gz1*y1_dot_y2*(3*y1 + args.Rs1)/pow(y2*y1*(y1 + args.Rs1), 3.)*(log((y2 + args.Rs2)/args.Rs2) - y2/(y2 + args.Rs2));
+        term1 = -args.G0_Gz1*y1_dot_y2*(3*y1 + args.Rs1)/pow(y2*y1*(y1 + args.Rs1), 3.)*(log((y2 + args.Rs2)/args.Rs2) - y2/(y2 + args.Rs2));
 
         // computation of term 2, the (1,3) term
-        term2 = args.G0_Gz2*y1_dot_y2*(3*y2 + args.Rs2)/pow(y1*y2*(y2 + args.Rs2), 3.)*(log((y1 + args.Rs1)/args.Rs1) - y1/(y1 + args.Rs1));
+        term2 = -args.G0_Gz2*y1_dot_y2*(3*y2 + args.Rs2)/pow(y1*y2*(y2 + args.Rs2), 3.)*(log((y1 + args.Rs1)/args.Rs1) - y1/(y1 + args.Rs1));
         
         // computation of term 3, the (2,2) Laplacian term
         term3 = args.G0_Gz1/(y1*y2*pow((y1 + args.Rs1)*(y2 + args.Rs2), 2.));
@@ -106,10 +106,10 @@ double integrand_theta_kft(double theta, SecondOrderArgumentsKFT args) {
         term4 = args.G0_Gz2*cross/denom;
     }
     else if (args.terms_flag == 1) {
-        term1 = args.G0_Gz1*y1_dot_y2*(3*y1 + args.Rs1)/pow(y2*y1*(y1 + args.Rs1), 3.)*(log((y2 + args.Rs2)/args.Rs2) - y2/(y2 + args.Rs2));
+        term1 = -args.G0_Gz1*y1_dot_y2*(3*y1 + args.Rs1)/pow(y2*y1*(y1 + args.Rs1), 3.)*(log((y2 + args.Rs2)/args.Rs2) - y2/(y2 + args.Rs2));
     }
     else if (args.terms_flag == 2) {
-        term2 = args.G0_Gz2*y1_dot_y2*(3*y2 + args.Rs2)/pow(y1*y2*(y2 + args.Rs2), 3.)*(log((y1 + args.Rs1)/args.Rs1) - y1/(y1 + args.Rs1));
+        term2 = -args.G0_Gz2*y1_dot_y2*(3*y2 + args.Rs2)/pow(y1*y2*(y2 + args.Rs2), 3.)*(log((y1 + args.Rs1)/args.Rs1) - y1/(y1 + args.Rs1));
     }
     else if (args.terms_flag == 3) {
         term3 = args.G0_Gz1/(y1*y2*pow((y1 + args.Rs1)*(y2 + args.Rs2), 2.));
@@ -290,9 +290,9 @@ double integrand_z2_epsilon(double z2, SecondOrderArgumentsKFT args) {
     args.front_factor2 = 4.0*std::numbers::pi*_G_*rho0(z2, args.Rs2, conc2, args.Mvir_over_Msun)*pow(args.Rs2, 3.)*pow(1 + z2, -2.)/pow(_speedoflight_, 2.)*_m_to_kpc_;
     args.gp2 = args.p*args.G0_Gz2;
     args.y_a2 = args.rr_here + pow(args.gp2, 2.);
-    args.weight = 0.5*args.mnu*args.G0_Gz2/Hz2/(1 + z2)*args.front_factor2;
+    args.weight = args.mnu*args.G0_Gz2/Hz2/(1 + z2)*args.front_factor2;
     
-    auto [I, err] = GaussKronrod<SecondOrderArgumentsKFT>(integrand_z1_epsilon, 0.0, args.z_ini, args.rtols[0], args.atols[0], args);
+    auto [I, err] = GaussKronrod<SecondOrderArgumentsKFT>(integrand_z1_epsilon, z2, args.z_ini, args.rtols[0], args.atols[0], args);
     return I;
 };
 
@@ -322,10 +322,10 @@ double integrand_z1_epsilon(double z1, SecondOrderArgumentsKFT args) {
     if (args.terms_flag == 0) {
         // Compute all terms
         // computation of term 1, the (3,1) term
-        term1 = args.G0_Gz1*y1_dot_y2*(3*y1 + args.Rs1)/pow(y2*y1*(y1 + args.Rs1), 3.)*(log((y2 + args.Rs2)/args.Rs2) - y2/(y2 + args.Rs2));
+        term1 = -args.G0_Gz1*y1_dot_y2*(3*y1 + args.Rs1)/pow(y2*y1*(y1 + args.Rs1), 3.)*(log((y2 + args.Rs2)/args.Rs2) - y2/(y2 + args.Rs2));
 
         // computation of term 2, the (1,3) term
-        term2 = args.G0_Gz2*y1_dot_y2*(3*y2 + args.Rs2)/pow(y1*y2*(y2 + args.Rs2), 3.)*(log((y1 + args.Rs1)/args.Rs1) - y1/(y1 + args.Rs1));
+        term2 = -args.G0_Gz2*y1_dot_y2*(3*y2 + args.Rs2)/pow(y1*y2*(y2 + args.Rs2), 3.)*(log((y1 + args.Rs1)/args.Rs1) - y1/(y1 + args.Rs1));
         
         // computation of term 3, the (2,2) Laplacian term
         term3 = args.G0_Gz1/(y1*y2*pow((y1 + args.Rs1)*(y2 + args.Rs2), 2.));
@@ -346,10 +346,10 @@ double integrand_z1_epsilon(double z1, SecondOrderArgumentsKFT args) {
         term4 = args.G0_Gz2*cross/denom;
     }
     else if (args.terms_flag == 1) {
-        term1 = args.G0_Gz1*y1_dot_y2*(3*y1 + args.Rs1)/pow(y2*y1*(y1 + args.Rs1), 3.)*(log((y2 + args.Rs2)/args.Rs2) - y2/(y2 + args.Rs2));
+        term1 = -args.G0_Gz1*y1_dot_y2*(3*y1 + args.Rs1)/pow(y2*y1*(y1 + args.Rs1), 3.)*(log((y2 + args.Rs2)/args.Rs2) - y2/(y2 + args.Rs2));
     }
     else if (args.terms_flag == 2) {
-        term2 = args.G0_Gz2*y1_dot_y2*(3*y2 + args.Rs2)/pow(y1*y2*(y2 + args.Rs2), 3.)*(log((y1 + args.Rs1)/args.Rs1) - y1/(y1 + args.Rs1));
+        term2 = -args.G0_Gz2*y1_dot_y2*(3*y2 + args.Rs2)/pow(y1*y2*(y2 + args.Rs2), 3.)*(log((y1 + args.Rs1)/args.Rs1) - y1/(y1 + args.Rs1));
     }
     else if (args.terms_flag == 3) {
         term3 = args.G0_Gz1/(y1*y2*pow((y1 + args.Rs1)*(y2 + args.Rs2), 2.));
