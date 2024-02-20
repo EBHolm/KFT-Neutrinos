@@ -3,14 +3,24 @@ import numpy as np
 
 cdef extern from "perturbation_first.hpp":
     cdef double first_order(double mass, double z_ini, double rtols[3], double atols[3], double r_here, double Mvir_over_Msun, int N_GaussLaguerre, double Tnu)
+    cdef double zeroth_order(double mass, double z_ini, double rtols[3], double atols[3], double r_here, double Mvir_over_Msun, int N_GaussLaguerre, double Tnu)
     cdef double integrand_y_complete(double y, double mass, double z_ini, double rtols[2], double atols[2], double r_here, double Mvir_over_Msun, int N_GaussLaguerre, double Tnu);
+    cdef double epsilon_first(double y, double theta, double mass, double z_ini, double rtols[3], double atols[3], double r_here, double Mvir_over_Msun, int N_GaussLaguerre, double Tnu);
 
 cdef extern from "perturbation_second_kft.hpp":
     cdef double second_order_kft(double mass, double z_ini, double rtols[4], double atols[4], double r_here, double Mvir_over_Msun, int N_GaussLaguerre, int terms_flag, double Tnu)
     cdef double integrand_z2z1_kft(double z2, double z1, double mass, double z_ini, double rtols[4], double atols[4], double r_here, double Mvir_over_Msun, int N_GaussLaguerre, double Tnu)
+    cdef double epsilon_second(double y, double theta, double mass, double z_ini, double rtols[4], double atols[4], double r_here, double Mvir_over_Msun, int N_GaussLaguerre, int terms_flag, double Tnu)
+    cdef double integrate_epsilon_second(double mass, double z_ini, double rtols[4], double atols[4], double r_here, double Mvir_over_Msun, int N_GaussLaguerre, int terms_flag, double Tnu)
+    cdef double integrate_epsilon_first(double mass, double z_ini, double rtols[3], double atols[3], double r_here, double Mvir_over_Msun, int N_GaussLaguerre, double Tnu)
 
 cpdef py_first_order(double mass, double z_ini, double[::1] rtols, double[::1] atols, double r_here, double Mvir_over_Msun, int N_GaussLaguerre, double Tnu=0.0001676375864435959): 
     integral = first_order(mass, z_ini, &rtols[0], &atols[0], r_here, Mvir_over_Msun, N_GaussLaguerre, Tnu)
+    # integral = integrate_epsilon_first(mass, z_ini, &rtols[0], &atols[0], r_here, Mvir_over_Msun, N_GaussLaguerre, Tnu)
+    return integral
+
+cpdef py_zeroth_order(double mass, double z_ini, double[::1] rtols, double[::1] atols, double r_here, double Mvir_over_Msun, int N_GaussLaguerre, double Tnu=0.0001676375864435959): 
+    integral = zeroth_order(mass, z_ini, &rtols[0], &atols[0], r_here, Mvir_over_Msun, N_GaussLaguerre, Tnu)
     return integral
 
 cpdef py_first_integrand_y(double y, double mass, double z_ini, double[::1] rtols, double[::1] atols, double r_here, double Mvir_over_Msun, int N_GaussLaguerre, double Tnu=0.0001676375864435959):
@@ -19,8 +29,17 @@ cpdef py_first_integrand_y(double y, double mass, double z_ini, double[::1] rtol
 
 cpdef py_second_order_kft(double mass, double z_ini, double[::1] rtols, double[::1] atols, double r_here, double Mvir_over_Msun, int N_GaussLaguerre, int terms_flag=0, double Tnu=0.0001676375864435959):
     integral = second_order_kft(mass, z_ini, &rtols[0], &atols[0], r_here, Mvir_over_Msun, N_GaussLaguerre, terms_flag, Tnu)
+    # integral = integrate_epsilon_second(mass, z_ini, &rtols[0], &atols[0], r_here, Mvir_over_Msun, N_GaussLaguerre, terms_flag, Tnu)
     return integral
 
 cpdef py_second_integrand_z1z2_kft(double z2, double z1, double mass, double z_ini, double[::1] rtols, double[::1] atols, double r_here, double Mvir_over_Msun, int N_GaussLaguerre, double Tnu=0.0001676375864435959):
     integrand = integrand_z2z1_kft(z2, z1, mass, z_ini, &rtols[0], &atols[0], r_here, Mvir_over_Msun, N_GaussLaguerre, Tnu)
     return integrand
+
+cpdef py_epsilon_first(double y, double theta, double mass, double z_ini, double[::1] rtols, double[::1] atols, double r_here, double Mvir_over_Msun, int N_GaussLaguerre, double Tnu=0.0001676375864435959):
+    epsilon = epsilon_first(y, theta, mass, z_ini, &rtols[0], &atols[0], r_here, Mvir_over_Msun, N_GaussLaguerre, Tnu)
+    return epsilon
+
+cpdef py_epsilon_second(double y, double theta, double mass, double z_ini, double[::1] rtols, double[::1] atols, double r_here, double Mvir_over_Msun, int N_GaussLaguerre, int terms_flag=0, double Tnu=0.0001676375864435959):
+    epsilon = epsilon_second(y, theta, mass, z_ini, &rtols[0], &atols[0], r_here, Mvir_over_Msun, N_GaussLaguerre, terms_flag, Tnu)
+    return epsilon

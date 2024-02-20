@@ -10,6 +10,7 @@
 
 #include <numbers>
 #include "quadrature.hpp"
+#include "perturbation_first.hpp"
 
 struct SecondOrderArgumentsKFT {
     double rtols[4];
@@ -37,7 +38,7 @@ struct SecondOrderArgumentsKFT {
     double Rs1;
     double Rvir1;
     double z1;
-    double front_factor1; // = 4.*std::numbers::pi*rho0(z, Rs, conc)*pow(Rs, 3.)*pow(r, -3.);
+    double front_factor1;
     
     
     double p;
@@ -48,6 +49,11 @@ struct SecondOrderArgumentsKFT {
     
     std::vector<double> LaguerreNodes;
     std::vector<double> LaguerreWeights;
+    
+    double theta;
+    double z2;
+    double integrand_2;
+    double integrand_1;
 };
 
 
@@ -61,6 +67,32 @@ double integrand_y_kft(double y, SecondOrderArgumentsKFT args);
 
 double integrand_theta_kft(double theta, SecondOrderArgumentsKFT args);
 
+double integrand_theta_kft_term3(double theta, SecondOrderArgumentsKFT args);
+
+double integrand_z1_kft_term3(double z1, SecondOrderArgumentsKFT args);
+
 double integrand_z2z1_kft(double z2, double z1, double mass, double z_ini, double rtols[4], double atols[4], double r_here, double Mvir_over_Msun, int N_GaussLaguerre, double Tnu = 0.0001676375864435959);
+
+
+double integrate_epsilon_first(double mass, double z_ini, double rtols[4], double atols[4], double r_here, double Mvir_over_Msun, int N_GaussLaguerre, int terms_flag = 0, double Tnu = 0.0001676375864435959);
+
+double integrate_epsilon_y_first(double y, FirstOrderArguments args);
+
+double integrate_epsilon_theta_first(double theta, FirstOrderArguments args);
+
+double integrate_epsilon_second(double mass, double z_ini, double rtols[4], double atols[4], double r_here, double Mvir_over_Msun, int N_GaussLaguerre, int terms_flag = 0, double Tnu = 0.0001676375864435959);
+
+double integrate_epsilon_y_second(double y, SecondOrderArgumentsKFT args);
+
+double integrate_epsilon_theta_second(double theta, SecondOrderArgumentsKFT args);
+
+double epsilon_second(double y, double theta, double mass, double z_ini, double rtols[4], double atols[4], double r_here, double Mvir_over_Msun, int N_GaussLaguerre, int terms_flag = 0, double Tnu = 0.0001676375864435959);
+
+double epsilon_second(double y, double theta, SecondOrderArgumentsKFT args);
+
+double integrand_z2_epsilon(double z2, SecondOrderArgumentsKFT args);
+
+double integrand_z1_epsilon(double z1, SecondOrderArgumentsKFT args);
+
 
 #endif /* perturbation_second_kft_hpp */
